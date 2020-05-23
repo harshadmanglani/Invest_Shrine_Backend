@@ -1,4 +1,4 @@
 django
 djangorestframework
 mysqlclient
-azure-storages[blob]
+django-storages[azure]
