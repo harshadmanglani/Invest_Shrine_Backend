@@ -21,5 +21,7 @@ urlpatterns = [
 
     path('investors/', include("investors.urls")),
 
+    path('entrepreneurs/', include('entrepreneurs.urls'))
+
 
 ]

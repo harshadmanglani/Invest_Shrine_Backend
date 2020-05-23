@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     #local apps
     'investors',
+
+    'entrepreneurs'
 ]
 
 MIDDLEWARE = [
