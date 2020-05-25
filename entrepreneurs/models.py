@@ -8,7 +8,7 @@ class Entrepreneur(models.Model):
     password = models.CharField(max_length = 20)
 
 class EntrepreneurPortfolio(models.Model):
-    work_exp = models.TextField()
+    work_exp = models.CharField(max_length = 2000)
     investment_plan = models.ForeignKey('InvestmentPlan', on_delete = models.CASCADE)
 
 class InvestmentPlan(models.Model):
