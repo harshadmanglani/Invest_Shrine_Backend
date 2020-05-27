@@ -23,7 +23,8 @@ urlpatterns = [
 
     path('entrepreneurs/', include('entrepreneurs.urls')),
 
-    #path('register/', include("register.urls"))
+    path('register/', include(('register.urls', 'register'), namespace='register')),
+
 
 
 ]

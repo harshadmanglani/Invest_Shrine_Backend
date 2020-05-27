@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate 
+#in order to perform login and logot we will use these inbuilt django functions
 
-# Create your views here.
+
+def logout_request(request): #process logout request
+    #logout(request)
+    #return redirect( '' )
+    pass

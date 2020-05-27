@@ -13,8 +13,9 @@ class Category(models.Model):
     
 class User(AbstractUser):
     email = models.EmailField()
-    category = models.ForeignKey(Category, on_delete = models.CASCADE, verbose_name = "Category")
-    
+    category = models.ForeignKey(Category, on_delete = models.CASCADE, verbose_name = "Category" , default = 1)
+
+    #REQUIRED_FIELDS = ['category',]
 
 
 
