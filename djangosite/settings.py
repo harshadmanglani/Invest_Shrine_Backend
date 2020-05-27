@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #local apps
     'investors',
-    'entrepreneurs'
+    'entrepreneurs',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [
