@@ -4,10 +4,10 @@ from django.utils.translation import gettext_lazy as _
 
 class EntrepreneurForm(ModelForm):
     class Meta:
-        model = Entrepreneur
+        model = EntrepreneurModel
         fields = '__all__'
 
 class EntrepreneurPortfolioForm(ModelForm):
     class Meta:
-        model = EntrepreneurPortfolio
+        model = EntrepreneurPortfolioModel
         fields = '__all__'

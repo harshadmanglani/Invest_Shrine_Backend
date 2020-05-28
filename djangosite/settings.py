@@ -40,8 +40,13 @@ INSTALLED_APPS = [
     #local apps
     'investors',
     'entrepreneurs',
-    'widget_tweaks'
+    'widget_tweaks',
+    'graphene_django'
 ]
+
+GRAPHENE = {
+    'SCHEMA': 'entrepreneurs.schema.schema' # Where your Graphene schema lives
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
