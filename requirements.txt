@@ -3,4 +3,4 @@ djangorestframework
 mysqlclient
 django-storages[azure]
 django-widget-tweaks
-"graphene-django>=2.0"
+graphene-django>=2.0
