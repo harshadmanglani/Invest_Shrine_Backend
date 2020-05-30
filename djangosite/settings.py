@@ -133,5 +133,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+DEFAULT_FILE_STORAGE = 'djangosite.custom_azure.AzureMediaStorage'
+STATICFILES_STORAGE = 'djangosite.custom_azure.AzureStaticStorage'
+
+MEDIA_LOCATION = "insurancealpha"
+STATIC_LOCATION = "static"
+AZURE_ACCOUNT_NAME = "insurance1"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
