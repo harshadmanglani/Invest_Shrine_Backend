@@ -33,6 +33,6 @@ def login_request(request):
     form = AuthenticationForm()
     context  = {"form" : form}
 
-    return render(request = request, template_name = "login.html", context = context)
+    return render(request = request, template_name = "register/login.html", context = context)
 
     
