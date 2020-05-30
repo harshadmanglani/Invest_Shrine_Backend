@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'investors',
     'entrepreneurs',
     'widget_tweaks',
-    'graphene_django'
+    'graphene_django',
+    'register'
 ]
 
 GRAPHENE = {
@@ -85,13 +86,14 @@ WSGI_APPLICATION = 'djangosite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'harshtemp',
+        'NAME': 'temporaryentr',
         'USER': 'harshad@insurance-claim',
         'PASSWORD': 'password123$',
         'HOST': 'insurance-claim.mysql.database.azure.com',
         'PORT': '3306'
     }
 }
+
 
 
 # Password validation
@@ -112,6 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'register.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
