@@ -19,6 +19,13 @@ def investor_homepage(request):
 
 #def investor_slug(request,pk)
 
+def about(request):
+   # context = {"about" : "hey this is Aditya"}
+
+    return render(request=request, template_name = "investors/about.html") #,context = context)
+
+def contact_us(request):
+    return render(request = request,template_name = "investors/contact.html")
     
 
 
