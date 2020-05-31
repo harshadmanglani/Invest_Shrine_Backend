@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+"""from django.forms import ModelForm
 from .models import *
 from django.utils.translation import gettext_lazy as _
 
@@ -10,4 +10,4 @@ class EntrepreneurForm(ModelForm):
 class EntrepreneurPortfolioForm(ModelForm):
     class Meta:
         model = EntrepreneurPortfolioModel
-        fields = '__all__'
+        fields = '__all__'"""
