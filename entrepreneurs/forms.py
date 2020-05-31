@@ -1,13 +1,10 @@
-"""from django.forms import ModelForm
+from django.forms import ModelForm
 from .models import *
 from django.utils.translation import gettext_lazy as _
 
 class EntrepreneurPortfolioForm(ModelForm):
     class Meta:
         model = EntrepreneurPortfolioModel
-<<<<<<< HEAD
-        fields = '__all__'"""
-=======
         fields = '__all__'
         labels = {
             'first_name': _('First Name'),
@@ -21,4 +18,3 @@ class EntrepreneurPortfolioForm(ModelForm):
         help_texts = {
             'exec_summary': _('Please describe your summary in related field of work. Be specific about past experience and knowledge in the relevant industry of your startup. This will help investors understand your expertise.')
         }
->>>>>>> 2b2c3f1d0333b78083d76031d303f72098c66fcd
