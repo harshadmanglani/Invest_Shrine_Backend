@@ -15,6 +15,13 @@ class EntrepreneurPortfolioForm(ModelForm):
             'investment': _('Initial Investment required'),
             'exec_summary': _('Executive Summary'),
         }
+
         help_texts = {
+<<<<<<< HEAD
             'exec_summary': _('Please describe your summary in related field of work. Be specific about past experience and knowledge in the relevant industry of your startup. This will help investors understand your expertise.')
         }
+=======
+            'exec_summary': _('Please describe your summary in related field of work. Be specific about past experience and knowledge in the relevant industry of your startup. This will help investors understand your expertise.'),
+            }
+        
+>>>>>>> 9f447413ec5eabe542b64acc062155b6f4a48665
