@@ -2,7 +2,7 @@
 
 {% block title%}
 <title>
-    Investor Homepage
+    Entrepreneurs Homepage
 </title>
 {% endblock title%}
 
@@ -13,16 +13,16 @@
     <div class="container">
     
         <div class="row">
-          {% for ent in Entrepreneurs %}
+          {% for investor in Investors %}
             <div class="col s12 m6">
-              <a href="{{ent.pk}}", style="color:#000">
+              <a href="{{investor.pk}}", style="color:#000">
               <div class="card small hoverable white">
                 <div class="card-image">
                   
-                  <span class="card-title">{{ent.first_name}}</span>
+                  <span class="card-title">{{investor.first_name}}</span>
                 </div>
                 <div class="card-content">
-                  <p>{{ent.startup_summary}}</p>
+                  <p>{{investor.interests}}</p>
                 </div>
                 
               </div>

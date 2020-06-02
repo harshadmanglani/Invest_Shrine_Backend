@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import *
 from .forms import *
-
+from entrepreneurs.models import EntrepreneurPortfolioModel as Entrepreneur
 """def register(request):
 
     form = UserCreationForm
@@ -13,12 +13,15 @@ from .forms import *
 
 
 def investor_homepage(request):
-    allInvestors = Investor.objects.all()
-    context = {"investors" : allInvestors}
+    allEntrepreneurs = Entrepreneur.objects.all()
+    context = {"Entrepreneurs" : allEntrepreneurs}
 
     return render(request= request, template_name = "investors/homepage.html", context = context)
 
-#def investor_slug(request,pk)
+def entrepreneur_slug(request,pk):
+    ent = Entrepreneur.objects.get(pk=pk)
+    context = {"details" : ent}
+    return render(request = request, template_name = "investors/ent_slug.html",context = context)
 
 def about(request):
    # context = {"about" : "hey this is Aditya"}
