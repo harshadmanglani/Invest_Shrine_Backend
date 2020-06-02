@@ -1,21 +1,19 @@
-{% load static %}
-<html>
-    <head>
-        <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% extends "investors/header.html" %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'entrepreneurs/main.css'%}">
-    <title>Entrepreneur Registration</title>
-    </head>
+{% block title%}
 
-    <h1>Register to be an entrepreneur!</h1>
+<title>
+    Investor Portfolio
+</title>
+{% endblock title%}
+
+{% block content %}
+    
+<body>
+    <h1>Edit your portfolio</h1>
     <hr>
-    <body>
-        {% load widget_tweaks %}
+    {% load widget_tweaks %}
 
     <form method="post" novalidate>
         {% csrf_token %}
@@ -59,5 +57,6 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    </body>
-</html>
+    <hr>
+</body>
+{% endblock content %}
