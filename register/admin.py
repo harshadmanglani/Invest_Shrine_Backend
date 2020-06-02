@@ -3,11 +3,16 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User, Category
 
+
 class UserAdmin(admin.ModelAdmin):
-    
-    #fields = ["category",]
     pass
     
+   #model = User
+    #add_form = CustomUserCreationForm
+    #form = CustomUserChangeForm
+    
+   
+
 
 
 
