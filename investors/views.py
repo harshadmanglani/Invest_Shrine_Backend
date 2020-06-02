@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Investor
+from .models import *
+from .forms import *
 
 """def register(request):
 
@@ -26,6 +27,20 @@ def about(request):
 
 def contact_us(request):
     return render(request = request,template_name = "investors/contact.html")
+
+def portfolio(request):
+    form = InvestorPortfolioForm
+    if request.method == 'POST': 
+        print(request.POST) 
+        form = InvestorPortfolioForm(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            form.save()
+            return render(request, 'entrepreneurs/successful.html')
+        else:
+            return render(request, 'entrepreneurs/error.html')
+    context = {'form': form} 
+    return render(request, 'investors/portfolio.html', context)
     
 
 

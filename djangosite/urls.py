@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 
 from investors import views as investorViews
+from entrepreneurs import views as entrepreneurViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +25,6 @@ urlpatterns = [
     path('entrepreneurs/', include('entrepreneurs.urls')),
     path('register/', include(('register.urls', 'register'), namespace='register')),
     path('about/', investorViews.about, name = 'about'),
-    path('contact/', investorViews.contact_us, name = 'contact')
+    path('contact/', investorViews.contact_us, name = 'contact'),
+    path('', entrepreneurViews.landing_page, name = 'landing_page'),
 ]

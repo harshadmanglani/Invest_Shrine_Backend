@@ -1,23 +1,25 @@
 from graphene_django import DjangoObjectType
 import graphene
 from .models import *
-
-class Entrepreneur(DjangoObjectType):
-    class Meta:
-        model = EntrepreneurModel
+from investors.models import *
 
 class EntrepreneurPortfolio(DjangoObjectType):
     class Meta:
         model = EntrepreneurPortfolioModel
 
-class Query(graphene.ObjectType):
-    entrepreneur = graphene.List(Entrepreneur)
-    entrepreneur_portfolio = graphene.List(EntrepreneurPortfolio)
+class InvestorPortfolioModel(DjangoObjectType):
+    class Meta:
+        model = InvestorPortfolioModel
 
-    def resolve_entrepreneur(self, info):
-        return EntrepreneurModel.objects.all()
+
+class Query(graphene.ObjectType):
+    entrepreneur_portfolio = graphene.List(EntrepreneurPortfolioModel)
+    investor_portfolio = graphene.List(InvestorPortfolioModel)
 
     def resolve_entrepreneur_portfolio(self, info):
         return EntrepreneurPortfolioModel.objects.all()
+    
+    def resolve_investor_portfolio(self, info):
+        return InvestorPortfolioModel.objects.all()
 
 schema = graphene.Schema(query=Query)
