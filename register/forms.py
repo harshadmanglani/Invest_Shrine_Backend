@@ -1,10 +1,12 @@
 from django import forms
-from .models import User
+from .models import *
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
+
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required = True)
-    category = forms.CharField(max_length=50)
+    category = forms.ModelChoiceField(queryset=Category.objects, required=True, label=_("Status"))
 
     class Meta:
         model = User
