@@ -1,9 +1,18 @@
-<h1>Login</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
-<br>
-   If you already are a user please <a href="#">Register </a> for one. 
+{% extends "investors/header.html" %}
+
+{% block content %}
+<br><br><br>
+<div class="container">
+
+  <h1>Login</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  <br>
+     If you already are a user please <a href="#">Register </a> for one. 
+</div>
+
   
+{% endblock content %}
