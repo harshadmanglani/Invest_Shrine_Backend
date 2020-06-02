@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import *
-
+from investors.models import InvestorPortfolioModel as Investors
 
 def portfolio(request):
     form = EntrepreneurPortfolioForm
@@ -20,4 +20,14 @@ def landing_page(request):
     return render(request, 'entrepreneurs/landing_page.html')
 
 
-# Create your views here.
+
+def entrepreneur_homepage(request):
+    allInvestors = Investors.objects.all()
+    context = {"Investors" : allInvestors}
+
+    return render(request= request, template_name = "entrepreneurs/homepage.html", context = context)
+
+def investor_slug(request,pk):
+    investor = Investors.objects.get(pk=pk)
+    context = {"details" : investor}
+    return render(request = request, template_name = "entrepreneurs/inv_slug.html",context = context)

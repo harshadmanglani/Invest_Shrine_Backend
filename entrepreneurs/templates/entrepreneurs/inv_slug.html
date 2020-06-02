@@ -1,0 +1,28 @@
+{% extends "investors/header.html" %}
+
+{% block title%}
+<title>
+   {{details.first_name}}
+</title>
+{% endblock title%}
+
+{% block content %}
+
+    <div class="container">
+        <p>Come up with the details page
+            Going to write the details of the selected investor right now:
+        </p>
+        <br>
+
+        <br>{{details.first_name}} 
+        <br>{{details.last_name}} 
+        <br>{{details.email_id}} 
+        <br>{{details.interests}} 
+        <br>{{details.background}} 
+        <br>{{details.investment}} 
+        
+    </div>
+
+
+
+{% endblock content %}
