@@ -5,13 +5,13 @@
 <div class="container">
 
   <h1>Login</h1>
-  <form method="post">
+  <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
+    <button type="submit" class="btn">Login</button>
   </form>
   <br>
-     If you already are a user please <a href="#">Register </a> for one. 
+     If you already are a user please <a href="register">Register </a> for one. 
 </div>
 
   
