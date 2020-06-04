@@ -23,13 +23,6 @@ def entrepreneur_slug(request,pk):
     context = {"details" : ent}
     return render(request = request, template_name = "investors/ent_slug.html",context = context)
 
-def about(request):
-   # context = {"about" : "hey this is Aditya"}
-
-    return render(request=request, template_name = "investors/about.html") #,context = context)
-
-def contact_us(request):
-    return render(request = request,template_name = "investors/contact.html")
 
 def portfolio(request):
     form = InvestorPortfolioForm
