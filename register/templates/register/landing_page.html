@@ -2,23 +2,55 @@
 {% load static %}
 {% block title%}
 <title>
-    Landing Page
+    EP
 </title>
 {% endblock title%}
 
 {% block content %}
-    <p>
-        <div class="container"><img class="responsive-img" src="{% static 'register/images/option_1.png' %}"></div> 
-    </p>
-    <br>
-    <p>
-        <div class="container"><img class="responsive-img" src="{% static 'register/images/option_2.png' %}"></div> 
-    </p>
-    <br>
-    <p>
-        <div class="container"><img class="responsive-img" src="{% static 'register/images/option_3.png' %}"></div> 
-    </p>
 
-    
-   
+<div class="container">
+    <h3 class="blue-text">Artis</h3>
+</div>
+<div class="divider"></div>
+
+<div class="row">
+    <div class="col s8">
+        <div class="container">
+            <p class="flow-text left-align">
+                We believe that ideas and passion should never have to die due of a lack of money. We understand that
+                approaching investors as a newbie entrepreneur
+                is not only difficult, but a rather tedious process.
+            </p>
+        </div>
+    </div>
+    <div class="col s4">
+        <div class="container"><img height = "320" width = "320" class="responsive-img hoverable right-align"
+                src="{% static 'register/images/bulb with woman.png' %}"></div>
+    </div>
+    <div class="col s4">
+        <div class="container"><img height = "400" width = "400" class="responsive-img hoverable left-align"
+                src="{% static 'register/images/money with man.png' %}"></div>
+    </div>
+    <div class="col s8">
+        <div class="container">
+            <p class="flow-text left-align">
+                And since, we’ve brought up the word “investor”, what
+                really makes a person an investor? A million dollars in the bank? A swanky car and a fancy number plate?
+                We
+                don’t think so. If you’re willing to invest $3000, you’re still an investor, aren’t you? In our eyes, we
+                definitely believe you are.
+            </p>
+        </div>
+    </div>
+</div>
+<blockquote class="container flow-text">
+    "It's not how much money you make, but how much money you keep, how hard it works for you, and how many
+    generations you keep it for."<br> - Robert Kiyosaki
+</blockquote>
+
+<br>
+<p>
+<div class="container"><img class="responsive-img hoverable" src="{% static 'register/images/option_2.png' %}"></div>
+</p>
+<br>
 {% endblock content %}
