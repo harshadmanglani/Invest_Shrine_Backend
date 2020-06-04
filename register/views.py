@@ -61,4 +61,14 @@ def register(request):
     return render(request = request, template_name = "register/register.html",context = context)
 
 
+
+def about(request):
+   # context = {"about" : "hey this is Aditya"}
+
+    return render(request=request, template_name = "register/about.html") #,context = context)
+
+def contact_us(request):
+    return render(request = request,template_name = "register/contact.html")
+
+
     
