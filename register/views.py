@@ -13,7 +13,7 @@ def logout_request(request): #process logout request
 
 
 def homepage(request):
-    return HttpResponse("This is the homepage")
+    return render(request = request, template_name = "register/landing_page.html")
 
 def login_request(request):
    
