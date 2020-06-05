@@ -1,5 +1,13 @@
 # DjangoSite
-First I am going to create a new form for investors and entrepreneurs and them redirect them by if statement
-for their respective apps
-will have to include that for login as well.this seems the way to go with the existing model we have of
-have two different apps for entrepreneurs and investors, not that it makes a difference. 
+
+## Concern one:
+
+I think the website is too centric towards startups and tech related entrepreneurs, but not cake shops, etc.
+Before the prototype, we need to decide our target audience (or at least, our primary target audience) so that
+when we face questions from the people who demo it, we have answers ready. Not just for them, but for our own clarity
+as well.
+
+## Concern two:
+
+I think the website is too centric towards entrepreneurs rather than investors. The idea that literally anybody can be
+an investor is not coming across very well, I'm going to try and change that. If this issue is resolved, I'll update the readme. Till then, have a look.
