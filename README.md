@@ -11,3 +11,5 @@ as well.
 
 I think the website is too centric towards entrepreneurs rather than investors. The idea that literally anybody can be
 an investor is not coming across very well, I'm going to try and change that. If this issue is resolved, I'll update the readme. Till then, have a look.
+
+Update: I believe the gap between focussing on entrepreneurs and investors has fairly reduced now, let me know what you think.
