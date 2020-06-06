@@ -2,52 +2,35 @@
 
 {% block title%}
 <title>
-    Entrepreneurs Homepage
+  Entrepreneurs Homepage
 </title>
 {% endblock title%}
 
 {% block content %}
+
 <body>
 
 
-    <div class="container">
-    
-        <!-- <div class="row">
-          {% for investor in Investors %}
-            <div class="col s12 m6">
-              <a href="{{investor.pk}}", style="color:#000">
-              <div class="card small hoverable white">
-                <div class="card-image">
-                  
-                  <span class="card-title">{{investor.first_name}}</span>
-                </div>
-                <div class="card-content">
-                  <p>{{investor.interests}}</p>
-                </div>
-                
-              </div>
-            </div>
-          </a>
-          
-          {% endfor %} -->
+  <div class="container">
+    {%for investor in Investors%}
+    <br><br>
+    <br><br>
+    <a href="{{investor.pk}}" , style="padding-top: 40px;">
+      <div class="section" style="border: rgb(103, 110, 108);">
+        <div class="card-tile">
+        <span class="card-title white" style="font-size: 30px; font-weight: bold;">{{investor.first_name}}
+          {{investor.last_name}}</span>
+        <div class="card-content black-text">
+          <p>{{investor.investment}}</p>
+        </div>
+        {%endfor%}
 
-        {%for investor in Investors%}
-        <br><br>
-        <br><br>
-        <a href="{{investor.pk}}", style="padding-top: 40px;">
-        <div class="card-tile hoverable">
-          <span class="card-title white" style="font-size: 30px; font-weight: bold;">{{investor.first_name}} {{investor.last_name}}</span>
-          <div class="card-content black-text">
-            <p>{{investor.investment}}</p>
-          </div>
-          {%endfor%}
-          
-        
         </div>
-        </a>
-        </div>
-       
-       </div>
+      </div>
+    </a>
+  </div>
+
+  </div>
 
 </body>
 <br><br>

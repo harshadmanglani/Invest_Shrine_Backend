@@ -31,11 +31,13 @@ def investor_homepage(request):
 
 def entrepreneur_slug(request,pk):
     ent = Entrepreneur.objects.get(pk=pk)
-    context = {"details" : ent}
+    industry_list = ent.industry.all()
+    options = ent.investment_options.all()
+    context = {"details" : ent, "industry_list": industry_list, "options": options}
     return render(request = request, template_name = "investors/ent_slug.html",context = context)
 
 
-def portfolio(request):
+def portfolio(request): 
     populate = False
     if 'investor_uid' in request.session:
         populate = True
