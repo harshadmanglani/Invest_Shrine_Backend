@@ -6,7 +6,7 @@ class Industry(models.Model): # was IndustryModel
     industry = models.CharField(max_length=100) 
 
     def __str__(self):
-        return self.industry
+        return str(self.industry) if self.industry else ''
 
 class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel
     first_name =  models.CharField(max_length=100, blank = True, null = True)
@@ -21,5 +21,5 @@ class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel
     userid = models.IntegerField()
 
     def __str__(self):
-        return self.email_id
+        return str(self.userid)
 

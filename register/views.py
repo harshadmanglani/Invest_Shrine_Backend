@@ -9,6 +9,7 @@ from entrepreneurs.models import PortfolioEnt as EntrepreneurPortfolio
 from investors.forms import InvestorPortfolioForm as InvestorPortfolioForm
 from entrepreneurs.forms import EntrepreneurPortfolioForm as EntrepreneurPortfolioForm
 from .models import User
+from django.urls import reverse
 #in order to perform login and logout we will use these inbuilt django functions
 
 
@@ -31,7 +32,14 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}")
+                if str(form.cleaned_data['category'])=='Investor':
+                request.session['investor_uid'] = str(uid)
+                return redirect('investors:investor_portfolio')
+            
+                elif str(form.cleaned_data['category']) == 'Entrepreneur':
+                    request.session['entrepreneur_uid'] = str(uid)
+                    return redirect('/entrepreneurs/portfolio/')
+                    messages.info(request, f"You are now logged in as {username}")
                 #return redirect('/')#returning to the homepage which is yet to be build, that's why showing runtime error
             else:
                 messages.error(request, "Invalid username or password.")
@@ -63,11 +71,13 @@ def register(request):
             
             if str(form.cleaned_data['category'])=='Investor':
                 obj = InvestorPortfolio.objects.create(userid = uid)
-                return redirect('/investors/portfolio/', obj = obj)
+                request.session['investor_uid'] = str(uid)
+                return redirect('investors:investor_portfolio')
             
             elif str(form.cleaned_data['category']) == 'Entrepreneur':
                 obj = EntrepreneurPortfolio.objects.create(userid = uid)
-                return redirect('/entrepreneurs/portfolio/', obj = obj)
+                request.session['entrepreneur_uid'] = str(uid)
+                return redirect('/entrepreneurs/portfolio/')
 
             else:
                 return redirect('/')

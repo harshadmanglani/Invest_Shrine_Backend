@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import *
+from .models import Portfolio as InvestorPortfolio
 from .forms import *
 from entrepreneurs.models import PortfolioEnt as Entrepreneur
 from django.contrib.auth.decorators import login_required
-
+from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import user_passes_test
 
 
@@ -36,9 +36,20 @@ def entrepreneur_slug(request,pk):
 
 
 def portfolio(request):
+    populate = False
     form = InvestorPortfolioForm
+    if 'investor_uid' in request.session:
+        populate = True
+        investor_uid = int(request.session.get('investor_uid','-1'))
+        if investor_uid == -1:
+            print("something is horribly wrong")
+        del request.session['investor_uid']
+        invobj = InvestorPortfolio.objects.get(userid = investor_uid)
+        print(invobj)
+        form = InvestorPortfolioForm(initial = model_to_dict(invobj))
+
     if request.method == 'POST': 
-        print(request.POST) 
+        print(request.POST)
         form = InvestorPortfolioForm(request.POST)
         print(form.errors)
         if form.is_valid():
@@ -46,6 +57,7 @@ def portfolio(request):
             return render(request, 'entrepreneurs/successful.html')
         else:
             return render(request, 'entrepreneurs/error.html')
+
     context = {'form': form} 
     return render(request, 'investors/portfolio.html', context)
     

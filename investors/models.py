@@ -14,18 +14,18 @@ class Portfolio(models.Model): #was InvestorPortfolioModel
     userid = models.IntegerField()
 
     def __str__(self):
-        return self.email_id 
+        return str(self.userid)
     
 class History(models.Model): #was InvestmentHistoryModel
     investment_history = models.CharField(max_length = 100) 
 
     def __str__(self):
-        return self.investment_history
+        return str(self.investment_history) if self.investment_history else ''
 
 class InvestmentOptions(models.Model): # was InvestmentOptionsModel
     investment_options = models.CharField(max_length = 100)
 
     def __str__(self):
-        return self.investment_options
+        return str(self.investment_options) if self.investment_options else ''
 
    

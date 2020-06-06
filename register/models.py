@@ -8,7 +8,7 @@ class Category(models.Model):
         verbose_name_plural = "Category"
     
     def __str__(self):
-        return self.category_name
+        return str(self.category_name) if self.category_name else ''
 
     
 class User(AbstractUser):
