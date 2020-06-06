@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import *
 from .forms import *
-from entrepreneurs.models import EntrepreneurPortfolioModel as Entrepreneur
+from entrepreneurs.models import PortfolioEnt as Entrepreneur
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.decorators import user_passes_test
