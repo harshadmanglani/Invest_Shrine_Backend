@@ -53,7 +53,17 @@ def register(request):
             login(request,user)
             messages.info(request,f"You are now logged in as : {username}")
 
-            return redirect('/')
+            print(form.cleaned_data)
+            print(form.cleaned_data['category'])
+            if str(form.cleaned_data['category'])=='Investor':
+                return redirect('/investors/homepage/')
+            
+            elif str(form.cleaned_data['category']) == 'Entrepreneur':
+                return redirect('/entrepreneurs/homepage/')
+
+            else:
+                return redirect('/')
+
         else:
             for msg in form.error_messages:
                 messages.error(request,f"{msg} : {form.error_messages[msg]}")

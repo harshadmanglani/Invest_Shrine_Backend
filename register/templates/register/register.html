@@ -2,10 +2,15 @@
 
     <br>
 {% block content %}
-<br><br><br>
+
+<div class="container">
+    <h3 class="black-text">Register</h3>
+    <hr class="rounded">
+</div>
 <div class="container">
 <body>
     {% load widget_tweaks %}
+    <p></p>
 
         <form method="post" novalidate>
             {% csrf_token %}
@@ -32,6 +37,7 @@
                 {% for error in field.errors %}
                 <div class="invalid-feedback">
                     {{ error }}
+
                 </div>
                 {% endfor %}
                 {% else %}
