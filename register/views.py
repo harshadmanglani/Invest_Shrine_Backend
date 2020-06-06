@@ -31,12 +31,13 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+               
 
-                c = User.objects.get(username = username)
-                if c.category == 'Investor':
-                    return redirect('investors:investor_homepage')
-                if c.category == 'Entrepreneur':
-                    return redirect('investors:investor_homepage')
+              # """ c = User.objects.get(username = username)
+               # if c.category == 'Investor':
+                #    return redirect('investors:investor_homepage')
+                #if c.category == 'Entrepreneur':
+                 #   return redirect('investors:investor_homepage')"""
 
                 messages.info(request, f"You are now logged in as {username}")
                 #return redirect('/')#returning to the homepage which is yet to be build, that's why showing runtime error
