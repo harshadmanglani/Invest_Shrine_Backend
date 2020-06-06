@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class InvestorPortfolioForm(ModelForm):
     class Meta:
-        model = InvestorPortfolioModel
+        model = Portfolio
         fields = '__all__'
         labels = {
             'first_name': _('First Name'),
