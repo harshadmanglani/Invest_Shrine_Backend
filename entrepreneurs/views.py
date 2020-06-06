@@ -29,5 +29,7 @@ def entrepreneur_homepage(request):
 
 def investor_slug(request,pk):
     investor = Investors.objects.get(pk=pk)
-    context = {"details" : investor}
+    interest_list = investor.interests.all()
+    options = investor.investment_options.all()
+    context = {"details" : investor, "interests": interest_list, "options": options}
     return render(request = request, template_name = "entrepreneurs/inv_slug.html",context = context)

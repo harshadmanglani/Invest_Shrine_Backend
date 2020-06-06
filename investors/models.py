@@ -1,19 +1,20 @@
 from django.db import models
-from entrepreneurs.models import Industry
+from entrepreneurs.models import Industry 
 
 class Portfolio(models.Model): #was InvestorPortfolioModel
-    first_name =  models.CharField(max_length = 100)
-    last_name =  models.CharField(max_length = 100)
-    email_id = models.EmailField()
-    background = models.TextField()
-    linkedin_profile = models.URLField()
-    interests = models.ManyToManyField('entrepreneurs.Industry') #investor's interests
-    investment = models.IntegerField()
-    investment_history = models.ManyToManyField('History')
-    investment_options = models.ManyToManyField('InvestmentOptions')
+    first_name =  models.CharField(max_length = 100, blank = True, null = True) 
+    last_name =  models.CharField(max_length = 100, blank = True, null = True)
+    email_id = models.EmailField(blank = True, null = True)
+    background = models.TextField(blank = True, null = True)
+    linkedin_profile = models.URLField(blank = True, null = True)
+    interests = models.ManyToManyField('entrepreneurs.Industry', blank = True, null = True) #investor's interests
+    investment = models.IntegerField(blank = True, null = True)
+    investment_history = models.ManyToManyField('History', blank = True, null = True)
+    investment_options = models.ManyToManyField('InvestmentOptions', blank = True, null = True)
+    userid = models.IntegerField()
 
     def __str__(self):
-        return self.email_id
+        return self.email_id 
     
 class History(models.Model): #was InvestmentHistoryModel
     investment_history = models.CharField(max_length = 100) 
@@ -22,7 +23,7 @@ class History(models.Model): #was InvestmentHistoryModel
         return self.investment_history
 
 class InvestmentOptions(models.Model): # was InvestmentOptionsModel
-    investment_option = models.CharField(max_length = 100)
+    investment_options = models.CharField(max_length = 100)
 
     def __str__(self):
         return self.investment_options
