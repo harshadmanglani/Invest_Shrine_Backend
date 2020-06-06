@@ -2,26 +2,50 @@
 
 {% block title%}
 <title>
-   {{details.first_name}}
+    {{details.first_name}}
 </title>
 {% endblock title%}
 
 {% block content %}
 
-    <div class="container">
-        <p>Come up with the details page
-            Going to write the details of the selected investor right now:
-        </p>
-        <br>
+<div class="container">
 
-        <br>{{details.first_name}} 
-        <br>{{details.last_name}} 
-        <br>{{details.email_id}} 
-        <br>{{details.interests}} 
-        <br>{{details.background}} 
-        <br>{{details.investment}} 
-        
-    </div>
+    <h3>Investor Portfolio</h3>
+    <hr class="rounded">
+    <div class="row">
+        <div class="col s8" style="font-weight: bold; font-size: 45px; padding-top: 1%;">
+            
+            {{details.first_name}} {{details.last_name}} 
+            
+        </div>
+        <div class="col s4" style="font-size: 25px; padding-top: 1%;">
+            
+            {{details.linkedin_profile}}
+            
+        </div>
+    </div> 
+
+    <hr>
+    <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size:21px">{{details.background}}<br><br>
+        Interested in funding Rs.{{details.investment}} in ventures that are related to:
+    <ul>{% for interest in interests %}
+        <br>
+        <li style="list-style: circle; font-size: 18px;">
+            {{interest}}</li>{%endfor%}
+    </ul>
+</p>
+    <br>
+    <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size:21px">
+    Preferred Investment Options:
+    <ul>{% for option in options %}
+        <br>
+        <li style="list-style: circle; font-size: 18px;">
+            {{option}}</li>{%endfor%}
+    </ul>
+    </p>
+
+    <p style="font-size: 20px; font-weight: bold;">Reach out to me for investment at {{details.email_id}}</p>
+</div>
 
 
 

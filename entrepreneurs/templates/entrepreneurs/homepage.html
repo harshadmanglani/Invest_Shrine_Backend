@@ -12,7 +12,7 @@
 
     <div class="container">
     
-        <div class="row">
+        <!-- <div class="row">
           {% for investor in Investors %}
             <div class="col s12 m6">
               <a href="{{investor.pk}}", style="color:#000">
@@ -29,7 +29,22 @@
             </div>
           </a>
           
-          {% endfor %}
+          {% endfor %} -->
+
+        {%for investor in Investors%}
+        <br><br>
+        <br><br>
+        <a href="{{investor.pk}}", style="padding-top: 40px;">
+        <div class="card-tile hoverable">
+          <span class="card-title white" style="font-size: 30px; font-weight: bold;">{{investor.first_name}} {{investor.last_name}}</span>
+          <div class="card-content black-text">
+            <p>{{investor.investment}}</p>
+          </div>
+          {%endfor%}
+          
+        
+        </div>
+        </a>
         </div>
        
        </div>

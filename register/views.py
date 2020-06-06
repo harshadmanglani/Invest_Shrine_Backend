@@ -4,6 +4,11 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import NewUserForm
 from django.contrib import messages
+from investors.models import Portfolio as InvestorPortfolio
+from entrepreneurs.models import PortfolioEnt as EntrepreneurPortfolio
+from investors.forms import InvestorPortfolioForm as InvestorPortfolioForm
+from entrepreneurs.forms import EntrepreneurPortfolioForm as EntrepreneurPortfolioForm
+from .models import User
 #in order to perform login and logout we will use these inbuilt django functions
 
 
@@ -44,22 +49,25 @@ def register(request):
     if request.method == 'POST':
         print("POST method initiated")
         form = NewUserForm(request.POST)
-        if form.is_valid():
+        if form.is_valid():                                     
             print("valid")
             user = form.save()
             username = form.cleaned_data.get('username')
+            uid = user.id
+
             #displays messages, inbuilt library in django
             messages.success(request,f"New Account Created : {username}")
             login(request,user)
             messages.info(request,f"You are now logged in as : {username}")
 
-            print(form.cleaned_data)
-            print(form.cleaned_data['category'])
+            
             if str(form.cleaned_data['category'])=='Investor':
-                return redirect('/investors/homepage/')
+                obj = InvestorPortfolio.objects.create(userid = uid)
+                return redirect('/investors/portfolio/', obj = obj)
             
             elif str(form.cleaned_data['category']) == 'Entrepreneur':
-                return redirect('/entrepreneurs/homepage/')
+                obj = EntrepreneurPortfolio.objects.create(userid = uid)
+                return redirect('/entrepreneurs/portfolio/', obj = obj)
 
             else:
                 return redirect('/')
