@@ -25,12 +25,14 @@
     </div> 
 
     <hr>
-    <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size:21px">{{details.background}}<br><br>
-        Interested in funding Rs.{{details.investment}} in ventures that are related to:
-    <ul>{% for interest in interests %}
+    <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size:21px">{{details.exec_summary}}<br><br>
+        Require funding Rs.{{details.investment}} in the following venture:<br> {{details.startup_summary}}
+        <br>
+        Related to the following industries:
+    <ul>{% for industry in industry_list %}
         <br>
         <li style="list-style: circle; font-size: 18px;">
-            {{interest}}</li>{%endfor%}
+            {{industry}}</li>{%endfor%}
     </ul>
 </p>
     <br>
@@ -43,6 +45,6 @@
     </ul>
     </p>
 
-    <p style="font-size: 20px; font-weight: bold;">Reach out to me for investment at {{details.email_id}}</p>
+    <p style="font-size: 20px; font-weight: bold;">If you're interested in partnering with me, please reach out to me at {{details.email_id}}</p>
 </div>
 {% endblock content %}

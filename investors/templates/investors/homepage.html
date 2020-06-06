@@ -2,41 +2,32 @@
 
 {% block title%}
 <title>
-    Investor Homepage
+  Investor Homepage
 </title>
 {% endblock title%}
 
 {% block content %}
+<div class="container">
+  <h3 class="black-text">Entrepreneur Portfolios</h3>
+  <hr class="rounded">
+</div>
+
 <body>
-
-
-    <div class="container">
-    
-        <div class="row">
-          {% for ent in Entrepreneurs %}
-            <div class="col s12 m6">
-              <a href="{{ent.pk}}", style="color:#000">
-              <div class="card small hoverable white">
-                <div class="card-image">
-                  
-                  <span class="card-title">{{ent.first_name}}</span>
-                </div>
-                <div class="card-content">
-                  <p>{{ent.startup_summary}}</p>
-                </div>
-                
-              </div>
-            </div>
-          </a>
-          
+  <div class="container">
+    {% for entrepreneur in Entrepreneurs %}
+    <a href="{{entrepreneur.pk}}" , style="padding-top: 40px;">
+      <div class="section" style="border:thick; border-color: black;">
+        <div class="card-tile">
+          <span class="card-title white" style="font-size: 30px; font-weight: bold;">{{entrepreneur.first_name}}
+            {{entrepreneur.last_name}}</span>
+          <div class="card-content black-text">
+            <p>{{entrepreneur.industry.all.0}}</p>
+          </div>
           {% endfor %}
         </div>
-        <!-- {%for entrepreneur in Entrepreneurs %}
-        <p>{{entrepreneur}}</p>
-        {%endfor%}
-        -->
-       </div>
-
+      </div>
+  </div>
 </body>
 <br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 {% endblock content %}
