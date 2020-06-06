@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import *
-from investors.models import InvestorPortfolioModel as Investors
+from investors.models import Portfolio as Investors
 
 def portfolio(request):
     form = EntrepreneurPortfolioForm
