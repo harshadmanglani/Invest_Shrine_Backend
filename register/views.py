@@ -64,9 +64,7 @@ def register(request):
 
 
 def about(request):
-   # context = {"about" : "hey this is Aditya"}
-
-    return render(request=request, template_name = "register/about.html") #,context = context)
+    return render(request=request, template_name = "register/about.html") 
 
 def contact_us(request):
     return render(request = request,template_name = "register/contact.html")
