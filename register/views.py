@@ -15,6 +15,8 @@ from django.urls import reverse
 
 def logout_request(request): #process logout request
     logout(request)
+    if 'investor_uid' in request.session:
+        del request.session['investor_uid']
     messages.info(request,"You have successfully logged out ")
     return redirect("/") # returning to the homepage which is yet to be build, that's why showing runtime error
 
@@ -32,15 +34,14 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                if str(form.cleaned_data['category'])=='Investor':
-                request.session['investor_uid'] = str(uid)
-                return redirect('investors:investor_portfolio')
-            
-                elif str(form.cleaned_data['category']) == 'Entrepreneur':
-                    request.session['entrepreneur_uid'] = str(uid)
-                    return redirect('/entrepreneurs/portfolio/')
-                    messages.info(request, f"You are now logged in as {username}")
-                #return redirect('/')#returning to the homepage which is yet to be build, that's why showing runtime error
+                if str(user.category) == 'Investor':
+                    request.session['investor_uid'] = str(user.id)
+                    return redirect('/investors/homepage/')
+
+                elif str(user.category) == 'Entrepreneur':
+                    request.session['entrepreneur_uid'] = str(user.id)
+                    return redirect('/entrepreneurs/homepage/')
+               
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -79,8 +80,8 @@ def register(request):
                 request.session['entrepreneur_uid'] = str(uid)
                 return redirect('/entrepreneurs/portfolio/')
 
-            else:
-                return redirect('/')
+            #else:
+            return redirect('/')
 
         else:
             for msg in form.error_messages:

@@ -37,14 +37,14 @@ def entrepreneur_slug(request,pk):
 
 def portfolio(request):
     populate = False
-    form = InvestorPortfolioForm
     if 'investor_uid' in request.session:
         populate = True
         investor_uid = int(request.session.get('investor_uid','-1'))
         if investor_uid == -1:
             print("something is horribly wrong")
-        del request.session['investor_uid']
-        invobj = InvestorPortfolio.objects.get(userid = investor_uid)
+        print(investor_uid)
+        print(InvestorPortfolio.objects.filter(userid = investor_uid))
+        invobj = InvestorPortfolio.objects.filter(userid = investor_uid)[0]
         print(invobj)
         form = InvestorPortfolioForm(initial = model_to_dict(invobj))
 
