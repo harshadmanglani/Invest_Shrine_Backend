@@ -6,7 +6,7 @@
 <div class="container">
   <h1>Login</h1>
   <hr class="rounded">
-  <form action="/" method="POST">
+  <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn">Login</button>
