@@ -10,13 +10,13 @@ from investors.forms import InvestorPortfolioForm as InvestorPortfolioForm
 from entrepreneurs.forms import EntrepreneurPortfolioForm as EntrepreneurPortfolioForm
 from .models import User
 from django.urls import reverse
-#in order to perform login and logout we will use these inbuilt django functions
+# in order to perform login and logout we will use these inbuilt django functions
 
 
-def logout_request(request): #process logout request
+def logout_request(request): # process logout request
     logout(request)
     if 'investor_uid' in request.session:
-        del request.session['investor_uid']
+        del request.session['investor_uid'] # deletes the session "investor_uid" variable
     messages.info(request,"You have successfully logged out ")
     return redirect("/") # returning to the homepage which is yet to be build, that's why showing runtime error
 
@@ -24,8 +24,10 @@ def logout_request(request): #process logout request
 def homepage(request):
     return render(request = request, template_name = "register/landing_page.html")
 
-def login_request(request):
-   
+def login_request(request): # process login request
+    """
+    Configure this functionality to be linked with the table.
+    """
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
@@ -53,8 +55,12 @@ def login_request(request):
     return render(request = request, template_name = "register/login.html", context = context)
 
 def register(request):
+    """
+    This function handles the register requests, but it needs to be linked to the portfolio table. It's duplicating 
+    objects with the same user id.
+    """
     
-    #following code will handle POST requests
+    # following code will handle POST requests
     if request.method == 'POST':
         print("POST method initiated")
         form = NewUserForm(request.POST)

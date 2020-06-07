@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+# category of the user - investor/entrepreneur
 class Category(models.Model):
     category_name = models.CharField(max_length = 60)
 

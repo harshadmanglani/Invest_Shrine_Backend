@@ -2,9 +2,10 @@ from django.forms import ModelForm
 from .models import *
 from django.utils.translation import gettext_lazy as _
 
+# handle one - portfolio form for investors - define labels and help texts better - HIDE user ID
 class InvestorPortfolioForm(ModelForm): 
     class Meta:
-        model = Portfolio
+        model = Portfolio # input model to the ModelForm
         fields = '__all__'
         labels = {
             'first_name': _('First Name'),
@@ -19,6 +20,7 @@ class InvestorPortfolioForm(ModelForm):
             'background': _('Please describe your work summary in general, and any specifics you wish to. This will help relevant entrepreneurships reach out to you easily.'),
             }
 
+    # code to hide the userid field, not working
     def __init__(self, *args, **kwargs):
         from django.forms.widgets import HiddenInput
         hide_condition = kwargs.pop('hide_condition',None)
