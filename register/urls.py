@@ -9,5 +9,7 @@ urlpatterns = [
     path('register/', views.register, name = "register"),
     path('about/', views.about, name = 'about'),
     path('contact/', views.contact_us, name = 'contact'),
+    #temp urls for test
+    path('investor_register/', views.investor_register, name = 'investor_register'),
     
 ]

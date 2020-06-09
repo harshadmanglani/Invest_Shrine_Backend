@@ -9,6 +9,8 @@ from entrepreneurs.models import PortfolioEnt as EntrepreneurPortfolio
 from investors.forms import InvestorPortfolioForm as InvestorPortfolioForm
 from entrepreneurs.forms import EntrepreneurPortfolioForm as EntrepreneurPortfolioForm
 from .models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 #in order to perform login and logout we will use these inbuilt django functions
 
 
@@ -31,14 +33,6 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-               
-
-              # """ c = User.objects.get(username = username)
-               # if c.category == 'Investor':
-                #    return redirect('investors:investor_homepage')
-                #if c.category == 'Entrepreneur':
-                 #   return redirect('investors:investor_homepage')"""
-
                 messages.info(request, f"You are now logged in as {username}")
                 #return redirect('/')#returning to the homepage which is yet to be build, that's why showing runtime error
             else:
@@ -68,21 +62,12 @@ def register(request):
             login(request,user)
             messages.info(request,f"You are now logged in as : {username}")
 
-            
-            if str(form.cleaned_data['category'])=='Investor':
-                obj = InvestorPortfolio.objects.create(userid = uid)
-                return redirect('/investors/portfolio/', obj = obj)
-            
-            elif str(form.cleaned_data['category']) == 'Entrepreneur':
-                obj = EntrepreneurPortfolio.objects.create(userid = uid)
-                return redirect('/entrepreneurs/portfolio/', obj = obj)
-
-            else:
-                return redirect('/')
-
         else:
-            for msg in form.error_messages:
-                messages.error(request,f"{msg} : {form.error_messages[msg]}")
+            return redirect('/')
+
+    else:
+        for msg in form.error_messages:
+            messages.error(request,f"{msg} : {form.error_messages[msg]}")
 
     context = {"form"  : NewUserForm}
     return render(request = request, template_name = "register/register.html",context = context)
@@ -94,6 +79,40 @@ def about(request):
 
 def contact_us(request):
     return render(request = request,template_name = "register/contact.html")
+
+
+
+
+def investor_register(request):
+    if request.method == 'POST':
+        user_form = NewUserForm(request.POST, prefix = 'UF')
+        profile_form = InvestorPortfolioForm(request.POST,prefix ='PF')
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            print('hi')
+            user = user_form.save(commit=False)
+            print(user)
+            
+            user.save()
+
+            user.investor_portfolio.first_name = profile_form.cleaned_data.get('first_name')
+            user.investor_portfolio.last_name = profile_form.cleaned_data.get('last_name')
+           
+
+            user.investor_portfolio.save()
+
+    else:
+        user_form = NewUserForm(prefix='UF')
+        profile_form = InvestorPortfolioForm(prefix='PF')
+
+
+    context ={
+            'user_form': user_form,
+            'profile_form': profile_form,
+        }
+    return render(request= request, template_name='register/investor_register.html',context =context)
+
+	
 
 
     

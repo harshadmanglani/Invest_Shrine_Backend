@@ -1,11 +1,15 @@
-from django.forms import ModelForm
+#from django.forms import ModelForm
+from django import forms
 from .models import *
 from django.utils.translation import gettext_lazy as _
 
-class InvestorPortfolioForm(ModelForm): 
+class InvestorPortfolioForm(forms.ModelForm): 
     class Meta:
         model = Portfolio
-        fields = '__all__'
+        
+        fields = '__all__' 
+        exclude = ('user',)
+        #fields ('first_name','investment','background')
         labels = {
             'first_name': _('First Name'),
             'last_name': _('Last Name'),
