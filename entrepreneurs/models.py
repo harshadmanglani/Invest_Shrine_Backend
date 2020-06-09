@@ -21,5 +21,5 @@ class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel
     userid = models.IntegerField()
 
     def __str__(self):
-        return str(self.userid)
+        return str(self.userid) 
 

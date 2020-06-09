@@ -1,7 +1,7 @@
 from graphene_django import DjangoObjectType
 import graphene
 from .models import *
-from investors.models import *
+from investors.models import * 
 
 class EntrepreneurPortfolio(DjangoObjectType):
     class Meta:

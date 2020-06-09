@@ -24,5 +24,5 @@ class EntrepreneurPortfolioForm(ModelForm):
         hide_condition = kwargs.pop('hide_condition',None)
         super(EntrepreneurPortfolio, self).__init__(*args, **kwargs)
         if hide_condition:
-            self.fields['userid'].widget = HiddenInput()
+            self.fields['userid'].widget = HiddenInput() 
         
