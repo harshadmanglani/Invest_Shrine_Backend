@@ -16,11 +16,6 @@ def portfolio(request):
     context = {'form': form} 
     return render(request, 'entrepreneurs/portfolio.html', context)
 
-#def landing_page(request):
- #   return render(request, 'entrepreneurs/landing_page.html')
-
-
-
 def entrepreneur_homepage(request):
     allInvestors = Investors.objects.all()
     context = {"Investors" : allInvestors}
