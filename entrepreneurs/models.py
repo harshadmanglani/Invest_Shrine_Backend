@@ -13,7 +13,6 @@ class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel
     user = models.OneToOneField(User, on_delete=models.CASCADE, null = True,related_name = "entrepreneur_portfolio")
     first_name =  models.CharField(max_length=100, blank = True, null = True)
     last_name =  models.CharField(max_length=100, blank = True, null = True)
-    # email_id = models.EmailField(blank = True, null = True)
     exec_summary = models.TextField(blank = True, null = True)
     linkedin_profile = models.URLField(blank = True, null = True)
     industry = models.ManyToManyField('Industry')

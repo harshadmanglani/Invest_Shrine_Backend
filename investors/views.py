@@ -50,28 +50,24 @@ def portfolio(request):
     Renders a pre-populated portfolio connected to the user registration table. Functionality for prepopulation is broken 
     as of now.
     """
-    # if 'investor_uid' in request.session:
-    #     investor_uid = int(request.session.get('investor_uid','-1'))
-    #     if investor_uid == -1:
-    #         return render(request, 'entrepreneurs/error.html')
-    #     print(investor_uid)
-    #     print(InvestorPortfolio.objects.filter(userid = investor_uid))
-    #     invobj = InvestorPortfolio.objects.filter(userid = investor_uid)[0]
-    #     print(invobj)
-    #     form = InvestorPortfolioForm(initial = model_to_dict(invobj))
-
+    print(InvestorPortfolio.objects.all())
+    print(request)
+    print(request.user)
+    print(model_to_dict(InvestorPortfolio.objects.get(user = request.user)))
+    obj = InvestorPortfolio.objects.get(user = request.user)
+    form = InvestorPortfolioForm(initial=model_to_dict(InvestorPortfolio.objects.get(user = request.user)))
     if request.method == 'POST': 
         print(request.POST)
-        form = InvestorPortfolioForm(request.POST)
+        form = InvestorPortfolioForm(request.POST, instance = obj)
         print(form.errors)
         if form.is_valid():
             form.save()
-            return redirect('/investors/homepage/') # changed this from render /successful.html
+            return redirect('/investors/portfolio/') # changed this from render /successful.html
         else:
             return render(request, 'entrepreneurs/error.html') # let this remain
 
     context = {'form': form} 
-    return render(request, '/investors/portfolio.html', context)
+    return render(request, 'investors/portfolio.html', context)
     
 
 

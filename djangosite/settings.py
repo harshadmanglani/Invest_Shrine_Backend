@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'entrepreneurs',
     'widget_tweaks',
     'graphene_django',
-    'register'
+    'register',
+    'formtools'
 ]
 
 GRAPHENE = {
