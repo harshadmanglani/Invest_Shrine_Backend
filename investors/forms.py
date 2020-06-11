@@ -1,4 +1,5 @@
-from django.forms import ModelForm
+#from django.forms import ModelForm
+from django import forms
 from .models import *
 from django.utils.translation import gettext_lazy as _
 
@@ -7,6 +8,7 @@ class InvestorPortfolioForm(ModelForm):
     class Meta:
         model = Portfolio # input model to the ModelForm
         fields = '__all__'
+        exclude = ('user',)
         labels = {
             'first_name': _('First Name'),
             'last_name': _('Last Name'),

@@ -8,16 +8,16 @@ from django.utils.translation import ugettext_lazy as _
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required = True)
-    category = forms.ModelChoiceField(queryset=Category.objects, required=True, label=_("Status"))
+    #category = forms.ModelChoiceField(queryset=Category.objects, required=True, label=_("Status"))
 
     class Meta:
         model = User
-        fields = ('username','email','password1','password2','category')
+        fields = ('username','email','password1','password2')
 
-    def save(self, commit = True): 
-        user = super(NewUserForm,self).save(commit=False)
-        user.email= self.cleaned_data.get("email")
-        user.category = self.cleaned_data.get("category")
-        if commit:
-            user.save()
-            return user
+    # def save(self, commit = True):
+    #     user = super(NewUserForm,self).save(commit=False)
+    #     user.email= self.cleaned_data.get("email")
+    #     #user.category = self.cleaned_data.get("category")
+    #     if commit:
+    #         user.save()
+    #         return user

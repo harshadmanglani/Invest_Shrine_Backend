@@ -9,8 +9,9 @@ from entrepreneurs.models import PortfolioEnt as EntrepreneurPortfolio
 from investors.forms import InvestorPortfolioForm as InvestorPortfolioForm
 from entrepreneurs.forms import EntrepreneurPortfolioForm as EntrepreneurPortfolioForm
 from .models import User
-from django.urls import reverse
-# in order to perform login and logout we will use these inbuilt django functions
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+#in order to perform login and logout we will use these inbuilt django functions
 
 
 def logout_request(request): # process logout request
@@ -75,23 +76,12 @@ def register(request):
             login(request,user)
             messages.info(request,f"You are now logged in as : {username}")
 
-            
-            if str(form.cleaned_data['category'])=='Investor':
-                obj = InvestorPortfolio.objects.create(userid = uid)
-                request.session['investor_uid'] = str(uid)
-                return redirect('investors:investor_portfolio')
-            
-            elif str(form.cleaned_data['category']) == 'Entrepreneur':
-                obj = EntrepreneurPortfolio.objects.create(userid = uid)
-                request.session['entrepreneur_uid'] = str(uid)
-                return redirect('/entrepreneurs/portfolio/')
-
-            #else:
+        else:
             return redirect('/')
 
-        else:
-            for msg in form.error_messages:
-                messages.error(request,f"{msg} : {form.error_messages[msg]}")
+    else:
+        for msg in form.error_messages:
+            messages.error(request,f"{msg} : {form.error_messages[msg]}")
 
     context = {"form"  : NewUserForm}
     return render(request = request, template_name = "register/register.html",context = context)
@@ -103,6 +93,40 @@ def about(request):
 
 def contact_us(request):
     return render(request = request,template_name = "register/contact.html")
+
+
+
+
+def investor_register(request):
+    if request.method == 'POST':
+        user_form = NewUserForm(request.POST, prefix = 'UF')
+        profile_form = InvestorPortfolioForm(request.POST,prefix ='PF')
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            print('hi')
+            user = user_form.save(commit=False)
+            print(user)
+            
+            user.save()
+
+            user.investor_portfolio.first_name = profile_form.cleaned_data.get('first_name')
+            user.investor_portfolio.last_name = profile_form.cleaned_data.get('last_name')
+           
+
+            user.investor_portfolio.save()
+
+    else:
+        user_form = NewUserForm(prefix='UF')
+        profile_form = InvestorPortfolioForm(prefix='PF')
+
+
+    context ={
+            'user_form': user_form,
+            'profile_form': profile_form,
+        }
+    return render(request= request, template_name='register/investor_register.html',context =context)
+
+	
 
 
     
