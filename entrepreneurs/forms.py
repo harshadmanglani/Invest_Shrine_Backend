@@ -4,8 +4,9 @@ from django.utils.translation import gettext_lazy as _
 
 class EntrepreneurPortfolioForm(ModelForm):
     class Meta: 
-        model = PortfolioEnt
+        model = PortfolioEnt 
         fields = '__all__'
+        exclude = ('user',)
         labels = {
             'first_name': _('First Name'),
             'last_name': _('Last Name'),
@@ -14,15 +15,15 @@ class EntrepreneurPortfolioForm(ModelForm):
             'startup_summary': _('Summarise your business/idea'),
             'investment': _('Initial Investment required'),
             'exec_summary': _('Executive Summary'),
+            'linkedin_profile': _('LinkedIn Profile'),
+            'investment_options': _('Investment Preferences'),
+            'venture_name': _('Name of your venture'),
+            'prototype': _('Pitch Deck')
         }
 
         help_texts = {
             'exec_summary': _('Please describe your summary in related field of work. Be specific about past experience and knowledge in the relevant industry of your startup. This will help investors understand your expertise.'),
+            'investment_options': _('Please describe your preferred type of funding.'),
+            'prototype': _('A secure GDrive link to your pitch deck, please leave it blank in case it is not ready.')
             }
-    def __init__(self, *args, **kwargs):
-        from django.forms.widgets import HiddenInput
-        hide_condition = kwargs.pop('hide_condition',None)
-        super(EntrepreneurPortfolio, self).__init__(*args, **kwargs)
-        if hide_condition:
-            self.fields['userid'].widget = HiddenInput()
         

@@ -11,22 +11,34 @@ from entrepreneurs.forms import EntrepreneurPortfolioForm as EntrepreneurPortfol
 from .models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from investors.models import parse as parseinvestorportfolio
-#in order to perform login and logout we will use these inbuilt django functions
+from django.contrib.auth.decorators import login_required
 
 
 def logout_request(request): # process logout request
     logout(request)
     messages.info(request,"You have successfully logged out ")
-    return redirect("/") # returning to the homepage which is yet to be build, that's why showing runtime error
+    return redirect("/") 
 
 def homepage(request):
     return render(request = request, template_name = "register/landing_page.html")
+    
+@login_required
+def portfolio(request):
+    if request.user.category == 'Investor':
+        print('Rendering investor portfolio')
+        return redirect('/investors/portfolio')
+    
+    elif request.user.category == 'Entrepreneur':
+        print('Rendering entrepreneur portfolio')
+        return redirect('/entrepreneurs/portfolio')
 
 def login_request(request): # process login request
-#     """
-#     Configure this functionality to be linked with the table.
-#     """
+    """
+    Configure this functionality to redirect to separate homepages
+    """
+    if request.user.is_authenticated:
+        return redirect(request.GET.get('next', '/'))
+        
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
@@ -35,13 +47,7 @@ def login_request(request): # process login request
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                # if str(user.category) == 'Investor':
-#                     request.session['investor_uid'] = str(user.id)
-#                     return redirect('/investors/homepage/')
-
-#                 elif str(user.category) == 'Entrepreneur':
-#                     request.session['entrepreneur_uid'] = str(user.id)
-#                     return redirect('/entrepreneurs/homepage/')
+                return redirect(request.GET.get('next', '/'))
                
             else:
                 messages.error(request, "Invalid username or password.")
@@ -53,59 +59,24 @@ def login_request(request): # process login request
 
     return render(request = request, template_name = "register/login.html", context = context)
 
-def investor_register(request):
+def register(request):
     if request.method == 'POST':
         user_form = NewUserForm(request.POST, prefix = 'UF')
-        # portfolio_form = InvestorPortfolioForm(request.POST,prefix ='PF')
         
         if user_form.is_valid():
             user = user_form.save(commit=False)      
             user.save()
-            # print(request.user)
             login(request,user)
             messages.info(request,f"You are now logged in as : {user_form.cleaned_data.get('username')}")
-            return redirect('/investors/portfolio/')
+            return redirect('/') #redirect to separate homepages
             
-            # parseinvestorportfolio(user, portfolio_form)
-
-            # user.investor_portfolio.save()
-
     else:
         user_form = NewUserForm(prefix='UF')
-        # portfolio_form = InvestorPortfolioForm(prefix='PF')
-
 
     context ={
             'user_form': user_form,
-            # 'portfolio_form': portfolio_form,
         }
-    return render(request= request, template_name='register/investor_register.html',context =context)
-
-	
-def entrepreneur_register(request):
-    if request.method == 'POST':
-        user_form = NewUserForm(request.POST, prefix = 'UF')
-        portfolio_form = EntrepreneurPortfolioForm(request.POST,prefix ='PF')
-        
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save(commit=False)      
-            user.save()
-            
-            parseentrepreneurportfolio(user, portfolio_form)
-
-            user.investor_portfolio.save()
-
-    else:
-        user_form = NewUserForm(prefix='UF')
-        portfolio_form = EntrepreneurPortfolioForm(prefix='PF')
-
-
-    context ={
-            'user_form': user_form,
-            'portfolio_form': portfolio_form,
-        }
-    return render(request= request, template_name='register/investor_register.html',context =context)
-
+    return render(request= request, template_name='register/register.html',context =context)
     
 def about(request):
     return render(request=request, template_name = "register/about.html") 
