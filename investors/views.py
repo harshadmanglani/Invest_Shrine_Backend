@@ -40,14 +40,12 @@ def investor_homepage(request):
 @login_required
 def entrepreneur_slug(request,pk):
     """
-    Renders the page for an invidividual entrepreneur portfolio, maybe we could figure out a better way instead of
-    explicitly sending industry_list and options, they're already a part of variable entrepreneur.
+    Renders the page for an invidividual entrepreneur portfolio, optimised to retrieve all data from the entrepreneur
+    variable.
     """
 
     entrepreneur = Entrepreneur.objects.get(pk=pk)
-    industry_list = entrepreneur.industry.all() # sending this separately - can be replaced if {{industry.all}} can be iterated in templates.html
-    options = ent.investment_options.all() # sending this separately - can be replaced
-    context = {"details" : entrepreneur, "industry_list": industry_list, "options": options}
+    context = {"entrepreneur" : entrepreneur}
     return render(request = request, template_name = "investors/ent_slug.html",context = context)
 
 

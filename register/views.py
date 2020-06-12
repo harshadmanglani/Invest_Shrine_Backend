@@ -47,7 +47,15 @@ def login_request(request): # process login request
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect(request.GET.get('next', '/'))
+                if request.GET.get('next', None) is not None:
+                    return redirect(request.GET['next'])
+                else:
+                    if user.category == 'Investor':
+                        return redirect('/investors/homepage')
+                    elif user.category == 'Entrepreneur':
+                        return redirect('/entrepreneurs/homepage')
+                    else:
+                        pass
                
             else:
                 messages.error(request, "Invalid username or password.")
@@ -68,13 +76,14 @@ def register(request):
             user.save()
             login(request,user)
             messages.info(request,f"You are now logged in as : {user_form.cleaned_data.get('username')}")
-            return redirect('/') #redirect to separate homepages
+            if user.category == 'Investor':
+                return redirect('/') #redirect to separate homepages
             
     else:
         user_form = NewUserForm(prefix='UF')
 
     context ={
-            'user_form': user_form,
+            'form': user_form,
         }
     return render(request= request, template_name='register/register.html',context =context)
     

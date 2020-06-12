@@ -1,8 +1,8 @@
 {% extends "register/header.html" %}
 
-{% block title%} 
+{% block title%}
 <title>
-   {{details.first_name}}
+    {{details.first_name}}
 </title>
 {% endblock title%}
 
@@ -12,39 +12,54 @@
     <h3>Entrepreneur Portfolio</h3>
     <hr class="rounded">
     <div class="row">
-        <div class="col s8" style="font-weight: bold; font-size: 45px; padding-top: 1%;">
-            
-            {{details.first_name}} {{details.last_name}} 
-            
+        <div class="col s8"
+            style="font-size: 40px; padding-top: 1%; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+
+            {{entrepreneur.first_name}} {{entrepreneur.last_name}},<br><i>{{entrepreneur.venture_name}}</i>
+
         </div>
         <div class="col s4" style="font-size: 25px; padding-top: 1%;">
-            
-            {{details.linkedin_profile}}
-            
+            <a href={{entrepreneur.linkedin_profile}} class="blue-text">
+                LinkedIn Profile
+            </a>
         </div>
-    </div> 
-
+    </div>
     <hr>
-    <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size:21px">{{details.exec_summary}}<br><br>
-        Require funding Rs.{{details.investment}} in the following venture:<br> {{details.startup_summary}}
-        <br>
-        Related to the following industries:
-    <ul>{% for industry in industry_list %}
-        <br>
-        <li style="list-style: circle; font-size: 18px;">
-            {{industry}}</li>{%endfor%}
-    </ul>
-</p>
-    <br>
     <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size:21px">
-    Preferred Investment Options:
-    <ul>{% for option in options %}
+        <b>Startup Summary:</b>
         <br>
-        <li style="list-style: circle; font-size: 18px;">
-            {{option}}</li>{%endfor%}
-    </ul>
+        {{entrepreneur.startup_summary}}
+        <br>
+        <br>
+        <b>Executive Summary:</b>
+        <br>
+        {{entrepreneur.exec_summary}}
+        <br>
+        <br>
+        <b>Initial Funding:</b> Rs.{{entrepreneur.investment}}
+        <br>
+        <br>
+        <b>Related to the following industries:</b>
     </p>
-
-    <p style="font-size: 20px; font-weight: bold;">If you're interested in partnering with me, please reach out to me at {{details.email_id}}</p>
+    <ul style="padding-left: 20px;">
+        {% for industry in entrepreneur.industry.all %}
+        <li class="round">
+            {{industry}}
+        </li>
+        {%endfor%}
+    </ul>
+    <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size:21px">
+        <b>Preferred Investment Options:</b></p>
+    <ul style="padding-left: 20px;">
+        {% for option in entrepreneur.investment_options.all %}
+        <li class="round">
+            {{option}}
+        </li>
+        {%endfor%}
+    </ul>
+    <div class="w3-panel w3-border w3-round-medium">
+    <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size:21px; font-weight: bold;">Email:
+        {{entrepreneur.user.email}}</p>
+    </div>
 </div>
 {% endblock content %}

@@ -36,20 +36,23 @@ class InvestmentOptions(models.Model): # was InvestmentOptionsModel
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    print('****', created)
     if instance.category == 'Investor':
+        print('investor portfolio created:', created)
         Portfolio.objects.get_or_create(user = instance)
     elif instance.category == 'Entrepreneur':
+        print('entrepreneur portfolio created:', created)
         EntrepreneurPortfolio.objects.get_or_create(user = instance)
+    else:
+        pass
 	
 @receiver(post_save, sender=User) 
 def save_user_profile(sender, instance, **kwargs):
     if instance.category == 'Investor':
         instance.investor_portfolio.save()
-        print('investor saved')
+        print('investor portfolio saved')
     elif instance.category == 'Entrepreneur':
         instance.entrepreneur_portfolio.save()
-        print('entrepreneur saved')
+        print('entrepreneur portfolio saved')
     else:
         pass
    
