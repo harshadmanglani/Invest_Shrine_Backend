@@ -1,30 +1,35 @@
 <nav style="background-color: rgb(101, 101, 101);">
   <div class="nav-wrapper">
-    <a href="/" class="brand-logo" style="font-size: 23px;">&nbsp&nbsp&nbsp&nbspCommercium</a>
+    <a href="/" class="brand-logo" style="font-size: 23px;">&nbsp&nbsp&nbspEquest</a>
     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
 
       {% if user.is_authenticated%}
-        {% if user.category == 'ENTREPRENEUR'%}
-          <li><a href="/entrepreneurs/portfolio/">{{user.username}}</a></li>
+        {% if user.category == 'Entrepreneur' %}
+        {% if user.is_superuser %}
+        {% else %}
+          <li><a href="/portfolio/">{{user.username}}</a></li>
           <li><a href="/entrepreneurs/homepage/">Home</a></li>
           
           <li><a href="/logout/">Logout</a></li>
         {% endif %}
 
-        {% if user.category == 'INVESTOR'%}
-          <li><a href="/investors/portfolio">{{user.username}}</a></li>
-          <li><a href="/investors/homepage/">Home</a></li>
-          
-          
-        {% endif %}
-
+        {% elif user.category == 'Investor' %}
         {% if user.is_superuser %}
-          <li><a href="/"> {{user.username}}</a></li>
+        {% else %}
+          <li><a href="/portfolio">{{user.username}}</a></li>
+          <li><a href="/investors/homepage/">Home</a></li>
+        
+        {% endif %}
+        
+        {% endif %}
+          
+        {% if user.is_superuser %}
+          <li><a href="/portfolio"> {{user.username}}</a></li>
           <li><a href="/investors/homepage/">Investor Home</a></li>
           <li><a href="/entrepreneurs/homepage/">Entrepreneur Home</a></li>
-          
+         
           
         {% endif %}
 
@@ -37,23 +42,26 @@
 
       <li><a href="/about/">About</a></li>
       <li><a href="/contact/">Contact Us</a></li>
-      <li><a href="/logout/">Logout</a></li>
-     
+
+      {% if user.is_authenticated%}
       
+      <li><a href="/logout/">Logout</a></li>
+
+      {% endif %}
     </ul>
   </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
       {% if user.is_authenticated%}
-        {% if user.category == 'ENTREPRENEUR'%}
+        {% if user.category == 'Entrepreneur'%}
           <li><a href="/entrepreneurs/portfolio/">{{user.username}}</a></li>
           <li><a href="/entrepreneurs/homepage/">Home</a></li>
           
           <li><a href="/logout/">Logout</a></li>
         {% endif %}
 
-        {% if user.category == 'INVESTOR'%}
+        {% if user.category == 'Investor'%}
           <li><a href="/investors/portfolio">{{user.username}}</a></li>
           <li><a href="/investors/homepage/">Home</a></li>
           

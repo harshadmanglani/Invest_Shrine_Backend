@@ -27,7 +27,11 @@ def homepage(request):
     
 @login_required
 def portfolio(request):
-    if request.user.category == 'Investor':
+    if request.user.is_superuser:
+        messages.info(request,"You're a superuser, and hence you can't access this functionality")
+        return redirect('/')
+        
+    elif request.user.category == 'Investor':
         print('Rendering investor portfolio')
         return redirect('/investors/portfolio')
     
@@ -35,9 +39,12 @@ def portfolio(request):
         print('Rendering entrepreneur portfolio')
         return redirect('/entrepreneurs/portfolio')
 
+    else:
+        pass
+
 def login_request(request): # process login request
     """
-    Configure this functionality to redirect to separate homepages
+    Redirects to separate homepages after authentication
     """
     if request.user.is_authenticated:
         return redirect(request.GET.get('next', '/'))
