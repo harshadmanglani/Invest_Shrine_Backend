@@ -6,7 +6,22 @@ from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import user_passes_test 
 
+
+def investor_check(user):
+    """
+    This is a decorator which checks if the user is registered as an investor and returns a boolean
+    variable which is used to redirect(Configure URL redirects after testing this functionality). 
+    """
+    if not user.is_superuser:
+        investors = InvestorPortfolio.objects.all()
+        print(investors)
+        return investors.filter(user=user).exists()
+    else:
+        return user.is_superuser
+
+
 @login_required
+@user_passes_test(investor_check, login_url = '/')
 def portfolio(request): 
     """
     Renders a prepopulated, ready to edit & update portfolio
@@ -26,7 +41,9 @@ def portfolio(request):
     context = {'form': form} 
     return render(request, 'investors/portfolio.html', context)
 
+
 @login_required
+@user_passes_test(investor_check, login_url = '/')
 def investor_homepage(request):
     """
     Renders the investor homepage with mini portfolios of entrepreneurs, filter functionality not available
@@ -37,7 +54,9 @@ def investor_homepage(request):
     context = {"Entrepreneurs" : allEntrepreneurs}
     return render(request= request, template_name = "investors/homepage.html", context = context)
 
+
 @login_required
+@user_passes_test(investor_check, login_url = '/')
 def entrepreneur_slug(request,pk):
     """
     Renders the page for an invidividual entrepreneur portfolio, optimised to retrieve all data from the entrepreneur

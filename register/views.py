@@ -12,6 +12,7 @@ from .models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 
 def logout_request(request): # process logout request
@@ -100,6 +101,9 @@ def about(request):
 
 def contact_us(request):
     return render(request = request,template_name = "register/contact.html")
+
+def permission_denied(request):
+    raise PermissionDenied
 
 
     
