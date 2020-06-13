@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'graphene_django',
     'register',
-    'formtools'
 ]
 
 GRAPHENE = {
