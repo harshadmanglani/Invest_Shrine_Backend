@@ -9,25 +9,46 @@ from entrepreneurs.models import PortfolioEnt as EntrepreneurPortfolio
 from investors.forms import InvestorPortfolioForm as InvestorPortfolioForm
 from entrepreneurs.forms import EntrepreneurPortfolioForm as EntrepreneurPortfolioForm
 from .models import User
-from django.urls import reverse
-# in order to perform login and logout we will use these inbuilt django functions
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 
 def logout_request(request): # process logout request
+    if not request.user.is_authenticated:
+        return redirect('/')
     logout(request)
-    if 'investor_uid' in request.session:
-        del request.session['investor_uid'] # deletes the session "investor_uid" variable
     messages.info(request,"You have successfully logged out ")
-    return redirect("/") # returning to the homepage which is yet to be build, that's why showing runtime error
-
+    return redirect("/") 
 
 def homepage(request):
     return render(request = request, template_name = "register/landing_page.html")
+    
+@login_required
+def portfolio(request):
+    if request.user.is_superuser:
+        messages.info(request,"You're a superuser, and hence you can't access this functionality")
+        return redirect('/')
+        
+    elif request.user.category == 'Investor':
+        print('Rendering investor portfolio')
+        return redirect('/investors/portfolio')
+    
+    elif request.user.category == 'Entrepreneur':
+        print('Rendering entrepreneur portfolio')
+        return redirect('/entrepreneurs/portfolio')
+
+    else:
+        pass
 
 def login_request(request): # process login request
     """
-    Configure this functionality to be linked with the table.
+    Redirects to separate homepages after authentication
     """
+    if request.user.is_authenticated:
+        return redirect(request.GET.get('next', '/'))
+        
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
@@ -36,13 +57,15 @@ def login_request(request): # process login request
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                if str(user.category) == 'Investor':
-                    request.session['investor_uid'] = str(user.id)
-                    return redirect('/investors/homepage/')
-
-                elif str(user.category) == 'Entrepreneur':
-                    request.session['entrepreneur_uid'] = str(user.id)
-                    return redirect('/entrepreneurs/homepage/')
+                if request.GET.get('next', None) is not None:
+                    return redirect(request.GET['next'])
+                else:
+                    if user.category == 'Investor':
+                        return redirect('/investors/homepage')
+                    elif user.category == 'Entrepreneur':
+                        return redirect('/entrepreneurs/homepage')
+                    else:
+                        pass
                
             else:
                 messages.error(request, "Invalid username or password.")
@@ -55,54 +78,39 @@ def login_request(request): # process login request
     return render(request = request, template_name = "register/login.html", context = context)
 
 def register(request):
-    """
-    This function handles the register requests, but it needs to be linked to the portfolio table. It's duplicating 
-    objects with the same user id.
-    """
-    
-    # following code will handle POST requests
+    if request.user.is_authenticated:
+        return redirect('/')
+
     if request.method == 'POST':
-        print("POST method initiated")
-        form = NewUserForm(request.POST)
-        if form.is_valid():                                     
-            print("valid")
-            user = form.save()
-            username = form.cleaned_data.get('username')
-            uid = user.id
-
-            #displays messages, inbuilt library in django
-            messages.success(request,f"New Account Created : {username}")
+        user_form = NewUserForm(request.POST, prefix = 'UF')
+        
+        if user_form.is_valid():
+            user = user_form.save(commit=False)      
+            user.save()
             login(request,user)
-            messages.info(request,f"You are now logged in as : {username}")
-
+            messages.info(request,f"You are now logged in as : {user_form.cleaned_data.get('username')}")
+            if user.category == 'Investor':
+                return redirect('/investors/portfolio')
+            elif user.category == 'Entrepreneur':
+                return redirect('/entrepreneurs/portfolio')
+            else: pass
             
-            if str(form.cleaned_data['category'])=='Investor':
-                obj = InvestorPortfolio.objects.create(userid = uid)
-                request.session['investor_uid'] = str(uid)
-                return redirect('investors:investor_portfolio')
-            
-            elif str(form.cleaned_data['category']) == 'Entrepreneur':
-                obj = EntrepreneurPortfolio.objects.create(userid = uid)
-                request.session['entrepreneur_uid'] = str(uid)
-                return redirect('/entrepreneurs/portfolio/')
+    else:
+        user_form = NewUserForm(prefix='UF')
 
-            #else:
-            return redirect('/')
-
-        else:
-            for msg in form.error_messages:
-                messages.error(request,f"{msg} : {form.error_messages[msg]}")
-
-    context = {"form"  : NewUserForm}
-    return render(request = request, template_name = "register/register.html",context = context)
-
-
-
+    context ={
+            'form': user_form,
+        }
+    return render(request= request, template_name='register/register.html',context =context)
+    
 def about(request):
     return render(request=request, template_name = "register/about.html") 
 
 def contact_us(request):
     return render(request = request,template_name = "register/contact.html")
+
+def permission_denied(request):
+    raise PermissionDenied
 
 
     
