@@ -7,6 +7,14 @@
 {% endblock title%}
 
 {% block content %}
+<style>
+  span.portfolio-properties {
+    font-style: italic !important;
+    font-size: 20px !important;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+  }
+</style>
+
 <div class="container">
   <h3 class="black-text">Investor Portfolios</h3>
   <hr class="rounded">
@@ -16,15 +24,28 @@
   <div class="container">
     {%for investor in Investors%}
     <a href="{{investor.pk}}">
-      <div class="w3-panel w3-border w3-round-large">
+      <div class="w3-panel w3-border w3-round-large hoverable">
         <div class="card-tile">
-          <span class="card-title white" style="font-size: 25px; font-weight:500;">{{investor.first_name}}
+          <span class="card-title white"
+            style="font-size: 25px; font-weight:500; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{investor.first_name}}
             {{investor.last_name}}</span>
           <div class="card-content black-text">
-            <p style="font-size: 18px;">
-              {% for interest in investor.interests.all %}
-              {{interest}}
-              {%endfor%}
+            <p style="font-size: 17px; font-weight: 100;">
+              Current position: 
+              <span class="portfolio-properties">{{investor.current_occupation}}</span>
+              <br>
+              Willing to invest: 
+              <span class="portfolio-properties">Rs. {{investor.investment}}</span>
+              <br>
+              Segment(s):
+              <span class="portfolio-properties">
+                {% for interest in investor.interests.all %}
+                {% if forloop.last %}
+                {{ interest }}
+                {% else %}
+                {{ interest }},
+                {% endif %}
+                {% endfor %}
             </p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 from django.db import models
 from investors.models import * 
 from register.models import User as User
-
+ 
 class Industry(models.Model): # was IndustryModel
     industry = models.CharField(max_length=100) 
 

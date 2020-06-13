@@ -45,7 +45,5 @@ def investor_slug(request,pk):
     """
 
     investor = Investors.objects.get(pk=pk)
-    interest_list = investor.interests.all()
-    options = investor.investment_options.all()
-    context = {"details" : investor, "interests": interest_list, "options": options}
+    context = {"investor" : investor}
     return render(request = request, template_name = "entrepreneurs/inv_slug.html",context = context)

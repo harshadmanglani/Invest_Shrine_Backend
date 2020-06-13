@@ -15,6 +15,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def logout_request(request): # process logout request
+    if not request.user.is_authenticated:
+        return redirect('/')
     logout(request)
     messages.info(request,"You have successfully logged out ")
     return redirect("/") 
@@ -68,6 +70,9 @@ def login_request(request): # process login request
     return render(request = request, template_name = "register/login.html", context = context)
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
     if request.method == 'POST':
         user_form = NewUserForm(request.POST, prefix = 'UF')
         
@@ -77,7 +82,10 @@ def register(request):
             login(request,user)
             messages.info(request,f"You are now logged in as : {user_form.cleaned_data.get('username')}")
             if user.category == 'Investor':
-                return redirect('/') #redirect to separate homepages
+                return redirect('/investors/portfolio')
+            elif user.category == 'Entrepreneur':
+                return redirect('/entrepreneurs/portfolio')
+            else: pass
             
     else:
         user_form = NewUserForm(prefix='UF')

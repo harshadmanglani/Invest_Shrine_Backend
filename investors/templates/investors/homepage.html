@@ -22,7 +22,7 @@
 <body>
   <div class="container">
     {% for entrepreneur in Entrepreneurs %}
-    <a href="{{entrepreneur.pk}}" , style="padding-top: 100px;">
+    <a href="{{entrepreneur.pk}}">
       <div class="w3-panel w3-border w3-round-large hoverable">
         <div class="card-tile">
           <span class="card-title white" style="font-size: 25px; font-weight: 500; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{entrepreneur.first_name}}
@@ -34,7 +34,7 @@
               <br>
               Pitch Deck: 
               <span class="portfolio-properties">
-              {% if entrepreneur.prototype is  not None%}
+              {% if entrepreneur.prototype is not None%}
               Available
               {%else%}
               Unavailable
@@ -48,9 +48,13 @@
               <br>
               Segment(s):
               <span class="portfolio-properties">
-              {% for industry in entrepreneur.industry.all %}
-              {{industry}}
-              {%endfor%}
+                {% for industry in entrepreneur.industry.all %}
+                {% if forloop.last %}
+                {{ industry }}
+                {% else %}
+                {{ industry }},
+                {% endif %}
+                {% endfor %}
               </span>
             </p>
           </div>

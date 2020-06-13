@@ -9,13 +9,13 @@ class Portfolio(models.Model): #was InvestorPortfolioModel
     user = models.OneToOneField(User, on_delete=models.CASCADE, null = True,related_name = "investor_portfolio")
     first_name =  models.CharField(max_length = 100, blank = True, null = True) 
     last_name =  models.CharField(max_length = 100, blank = True, null = True)
+    current_occupation = models.CharField(max_length=100, blank = True, null = True)
     linkedin_profile = models.URLField(blank = True, null = True)
     background = models.TextField(blank = True, null = True)
     interests = models.ManyToManyField('entrepreneurs.Industry') #investor's interests
     investment = models.IntegerField(blank = True, null = True)
     investment_history = models.ManyToManyField('History')
     investment_options = models.ManyToManyField('InvestmentOptions')
-    
 
     def __str__(self):
         return str(self.first_name)                                           # don't modify
