@@ -1,5 +1,6 @@
 from django.urls import path,include
 from . import views
+from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 
 urlpatterns = [
