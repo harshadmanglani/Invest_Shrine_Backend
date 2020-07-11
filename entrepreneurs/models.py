@@ -14,7 +14,7 @@ class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel
     last_name =  models.CharField(max_length=100, blank = True, null = True)
     linkedin_profile = models.URLField(blank = True, null = True)
     exec_summary = models.TextField(blank = True, null = True)
-    venture_name = models.CharField(max_length = 300)
+    venture_name = models.CharField(max_length = 300,blank = True, null = True)
     startup_summary = models.TextField(blank = True, null = True)
     industry = models.ManyToManyField('Industry')
     prototype = models.URLField(blank = True, null = True)

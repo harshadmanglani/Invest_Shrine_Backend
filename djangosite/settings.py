@@ -43,10 +43,11 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'graphene_django',
     'register',
+    'django_filters',
 ]
 
 GRAPHENE = {
-    'SCHEMA': 'entrepreneurs.schema.schema' # Where your Graphene schema lives
+    'SCHEMA': 'djangosite.schema.schema' # Where your Graphene schema lives
 }
 
 MIDDLEWARE = [

@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
 
 
 
@@ -23,4 +25,5 @@ urlpatterns = [
     path('investors/', include(("investors.urls", 'investors'), namespace="investors")),
     path('entrepreneurs/', include('entrepreneurs.urls')),
     path('', include(('register.urls', 'register'), namespace='register')),
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]
