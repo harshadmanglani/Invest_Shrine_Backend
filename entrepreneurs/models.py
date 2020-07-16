@@ -16,6 +16,9 @@ class Venture(models.Model):
     investment = models.IntegerField(blank = True, null = True)
     investment_options = models.ManyToManyField('investors.InvestmentOptions', blank = True)
     v_linkedin_profile = models.URLField(blank=True, null = True)
+    tag_line = models.CharField(max_length=144, default= None, null = True, blank= True)
+    location = models.CharField(max_length=100, default= None, null = True, blank= True)
+
 
     def __str__(self):
         return str(self.venture_name)
