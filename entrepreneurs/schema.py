@@ -14,7 +14,7 @@ from graphene import Field
 class EntrepreneurPortfolio(DjangoObjectType):
     class Meta:
         model = EntrepreneurPortfolioModel
-        filter_fields = ['user','first_name','last_name']
+        filter_fields = ['user','first_name','last_name', 'venture']
         interfaces = (relay.Node,)
         
 
