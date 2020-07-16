@@ -15,6 +15,7 @@ class Venture(models.Model):
     website = models.URLField(blank = True, null = True)
     investment = models.IntegerField(blank = True, null = True)
     investment_options = models.ManyToManyField('investors.InvestmentOptions', blank = True)
+    v_linkedin_profile = models.URLField(blank=True, null = True)
 
     def __str__(self):
         return str(self.venture_name)
