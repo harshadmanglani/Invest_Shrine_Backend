@@ -27,3 +27,15 @@ class EntrepreneurPortfolioForm(ModelForm):
             'prototype': _('A secure GDrive link to your pitch deck, please leave it blank in case it is not ready.')
             }
         
+
+#making the forms for graphql api
+class EntForm(ModelForm):
+    class Meta: 
+        model = PortfolioEnt 
+        fields = '__all__'
+
+class VentureForm(ModelForm):
+    class Meta: 
+        model = Venture 
+        fields = '__all__'
+    

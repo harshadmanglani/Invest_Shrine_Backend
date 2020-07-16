@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'djangosite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'juneone',
+        'NAME': 'innovatehack',
         'USER': 'harshad@insurance-claim',
         'PASSWORD': 'password123$',
         'HOST': 'insurance-claim.mysql.database.azure.com',
