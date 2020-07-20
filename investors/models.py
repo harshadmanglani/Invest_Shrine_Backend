@@ -34,6 +34,13 @@ class InvestmentOptions(models.Model): # was InvestmentOptionsModel
     def __str__(self):
         return str(self.investment_options) if self.investment_options else '' # don't modify
 
+#watchlist table for investors
+class WatchList(models.Model):
+    investor = models.ForeignKey(Portfolio, on_delete= models.CASCADE, null = True, blank =True)
+    entrepreneurs = models.ManyToManyField(EntrepreneurPortfolio, blank = True)
+
+
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if instance.category == 'Investor':
