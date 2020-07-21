@@ -15,13 +15,15 @@ class Portfolio(models.Model): #was InvestorPortfolioModel
     interests = models.ManyToManyField('entrepreneurs.Industry') #investor's interests
     investment = models.IntegerField(blank = True, null = True)
     investment_history = models.ManyToManyField('History')
-    investment_options = models.ManyToManyField('InvestmentOptions', blank = True)
     location = models.CharField(max_length=200,blank = True, null = True)
     num_investments = models.IntegerField(blank = True, null = True)
 
     def __str__(self):
         return str(self.first_name)                                           # don't modify
     
+    class Meta:
+        verbose_name_plural = "Investor's Portfolio"
+
 # investment history - public markets, direct investment, etc as a seasoned investor
 class History(models.Model): #was InvestmentHistoryModel
     investment_history = models.CharField(max_length = 100) 
@@ -29,18 +31,26 @@ class History(models.Model): #was InvestmentHistoryModel
     def __str__(self): 
         return str(self.investment_history) if self.investment_history else '' # don't modify
 
-# preferred investment options - funding for equity, funding for x% interest, etc
-class InvestmentOptions(models.Model): # was InvestmentOptionsModel
-    investment_options = models.CharField(max_length = 100)
+    class Meta:
+        verbose_name_plural = "Investment History"
 
-    def __str__(self):
-        return str(self.investment_options) if self.investment_options else '' # don't modify
+# preferred investment options - funding for equity, funding for x% interest, etc
+# class InvestmentOptions(models.Model): # was InvestmentOptionsModel
+#     investment_options = models.CharField(max_length = 100)
+
+#     def __str__(self):
+#         return str(self.investment_options) if self.investment_options else '' # don't modify
 
 #watchlist table for investors
 class WatchList(models.Model):
     investor = models.ForeignKey(Portfolio, on_delete= models.CASCADE, null = True, blank =True)
     entrepreneurs = models.ManyToManyField(EntrepreneurPortfolio, blank = True)
 
+    def __str__(self):
+        return str(self.investor)                                           # don't modify
+    
+    class Meta:
+        verbose_name_plural = "WatchList"
 
 
 @receiver(post_save, sender=User)

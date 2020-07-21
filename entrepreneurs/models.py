@@ -8,13 +8,16 @@ class Industry(models.Model): # was IndustryModel
     def __str__(self):
         return str(self.industry) if self.industry else ''
 
+    class Meta:
+        verbose_name_plural = "Industry"
+
+
 class Venture(models.Model):
     venture_name = models.CharField(max_length = 300,blank = True, null = True)
     startup_summary = models.TextField(blank = True, null = True)
     industry = models.ManyToManyField('Industry', blank = True)
     website = models.URLField(blank = True, null = True)
     investment = models.IntegerField(blank = True, null = True)
-    investment_options = models.ManyToManyField('investors.InvestmentOptions', blank = True)
     v_linkedin_profile = models.URLField(blank=True, null = True)
     tag_line = models.CharField(max_length=144, default= None, null = True, blank= True)
     location = models.CharField(max_length=100, default= None, null = True, blank= True)
@@ -22,6 +25,10 @@ class Venture(models.Model):
 
     def __str__(self):
         return str(self.venture_name)
+    
+    class Meta:
+        verbose_name_plural = "Ventures"
+
 
 
 class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel 
@@ -34,5 +41,9 @@ class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel
 
     def __str__(self):
         return str(self.first_name)
+    
+    class Meta:
+        verbose_name_plural = "Entrepreneur Portfolio"
+
 
 

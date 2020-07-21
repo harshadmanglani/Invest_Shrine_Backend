@@ -1,7 +1,7 @@
 from graphene_django import DjangoObjectType
 import graphene
 from .models import PortfolioEnt as EntrepreneurPortfolioModel, Venture, Industry
-from investors.models import Portfolio as InvestorPortfolioModel, InvestmentOptions
+from investors.models import Portfolio as InvestorPortfolioModel
 from register.models import User
 from django.db.models import Q
 from graphene import relay
@@ -30,9 +30,6 @@ class IndustryModel(DjangoObjectType):
         filter_fields = ["industry"]
         interfaces = (relay.Node,)
 
-class InvestmentOptionsModel(DjangoObjectType):
-    class Meta:
-        model = InvestmentOptions
 
 class Query(graphene.ObjectType):
   
@@ -45,11 +42,6 @@ class Query(graphene.ObjectType):
     industry_model = relay.Node.Field(IndustryModel)
     allindustries = DjangoFilterConnectionField(IndustryModel)
 
-    investment_options = graphene.List(InvestmentOptionsModel)
-
-
-    def resolve_investment_options(self, info, **kwargs):
-        return InvestmentOptions.objects.all()
 
 
 #Mutations here :
