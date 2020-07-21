@@ -1,7 +1,7 @@
 from graphene_django import DjangoObjectType
 import graphene
 # from .models import PortfolioEnt as EntrepreneurPortfolioModel, Venture, Industry
-from .models import Portfolio as InvestorPortfolioModel, InvestmentOptions
+from .models import Portfolio as InvestorPortfolioModel, InvestmentOptions, History
 from register.models import User
 from django.db.models import Q
 from graphene import relay
@@ -18,12 +18,22 @@ class InvestorPortfolio(DjangoObjectType):
         filter_fields = ['user','first_name','last_name','interests','investment_options','current_occupation']
         interfaces = (relay.Node,)
 
+class HistoryModel(DjangoObjectType):
+    class Meta:
+        model = History
+        filter_fields = ['investment_history']
+        interfaces =(relay.Node,)
+
 
 class Query(graphene.ObjectType):
 
     investors = relay.Node.Field(InvestorPortfolio)
     all_investors = DjangoFilterConnectionField(InvestorPortfolio)
 
+    history = relay.Node.Field(HistoryModel)
+    inv_history = DjangoFilterConnectionField(HistoryModel)
+
+    
 #mutations here :
 class InvType(DjangoObjectType):
     class Meta:

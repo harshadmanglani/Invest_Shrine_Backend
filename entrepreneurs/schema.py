@@ -18,12 +18,6 @@ class EntrepreneurPortfolio(DjangoObjectType):
         interfaces = (relay.Node,)
         
 
-# class InvestorPortfolio(DjangoObjectType):
-#     class Meta:
-#         model = InvestorPortfolioModel
-#         filter_fields = ['user','first_name','last_name','interests','investment_options','current_occupation']
-#         interfaces = (relay.Node,)
-
 class VentureModel(DjangoObjectType):
     class Meta:
         model = Venture
@@ -45,9 +39,6 @@ class Query(graphene.ObjectType):
     entrepreneurs = relay.Node.Field(EntrepreneurPortfolio)
     all_entrepreneurs = DjangoFilterConnectionField(EntrepreneurPortfolio)
 
-    # investors = relay.Node.Field(InvestorPortfolio)
-    # all_investors = DjangoFilterConnectionField(InvestorPortfolio)
-
     ventures = relay.Node.Field(VentureModel)   
     all_ventures = DjangoFilterConnectionField(VentureModel)
 
@@ -56,10 +47,6 @@ class Query(graphene.ObjectType):
 
     investment_options = graphene.List(InvestmentOptionsModel)
 
-    
-
-    # def resolve_industry_model(self, info, **kwargs):
-    #     return Industry.objects.all()
 
     def resolve_investment_options(self, info, **kwargs):
         return InvestmentOptions.objects.all()
