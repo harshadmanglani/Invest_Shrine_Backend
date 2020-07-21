@@ -7,7 +7,7 @@ from django.db.models import Q
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 from graphene_django.forms.mutation import DjangoModelFormMutation
-
+from .forms import InvestorPortfolioForm
 from graphene import Field
 
 
@@ -23,3 +23,17 @@ class Query(graphene.ObjectType):
 
     investors = relay.Node.Field(InvestorPortfolio)
     all_investors = DjangoFilterConnectionField(InvestorPortfolio)
+
+#mutations here :
+class InvType(DjangoObjectType):
+    class Meta:
+        model = InvestorPortfolioModel
+
+class InvMutation(DjangoModelFormMutation):
+    inv = Field(InvType)
+
+    class Meta:
+        form_class = InvestorPortfolioForm
+
+class myInvMutation(graphene.ObjectType):
+    create_investor = InvMutation.Field()
