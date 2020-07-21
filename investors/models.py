@@ -16,6 +16,8 @@ class Portfolio(models.Model): #was InvestorPortfolioModel
     investment = models.IntegerField(blank = True, null = True)
     investment_history = models.ManyToManyField('History')
     investment_options = models.ManyToManyField('InvestmentOptions', blank = True)
+    location = models.CharField(max_length=200,blank = True, null = True)
+    num_investments = models.IntegerField(blank = True, null = True)
 
     def __str__(self):
         return str(self.first_name)                                           # don't modify
