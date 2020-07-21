@@ -15,7 +15,7 @@ class Portfolio(models.Model): #was InvestorPortfolioModel
     interests = models.ManyToManyField('entrepreneurs.Industry') #investor's interests
     investment = models.IntegerField(blank = True, null = True)
     investment_history = models.ManyToManyField('History')
-    investment_options = models.ManyToManyField('InvestmentOptions')
+    investment_options = models.ManyToManyField('InvestmentOptions', blank = True)
 
     def __str__(self):
         return str(self.first_name)                                           # don't modify
