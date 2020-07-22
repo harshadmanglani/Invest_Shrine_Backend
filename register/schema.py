@@ -1,11 +1,42 @@
-# from graphene_django import DjangoObjectType
-# import graphene
+from graphene_django import DjangoObjectType
+import graphene
 
-# from .models import User
+from .models import User
+from graphene import relay
+from graphene_django.filter import DjangoFilterConnectionField
+from graphene_django.forms.mutation import DjangoModelFormMutation
+from graphene import Field
+from .forms import NewUserForm
 
-# class UserModel(DjangoObjectType):
-#     class Meta:
-#         model = User
+
+class UserModel(DjangoObjectType):
+    class Meta:
+        model = User
+        filter_fields = ['username', 'email','category']
+        interfaces = (relay.Node,)
+
+
+class Query(graphene.ObjectType):
+    users = relay.Node.Field(UserModel)
+    all_users = DjangoFilterConnectionField(UserModel)
+
+
+#mutation here:
+class UserType(DjangoObjectType):
+    class Meta:
+        model = User
+
+class UserMutation(DjangoModelFormMutation):
+    user = Field(UserType)
+    
+    class Meta:
+        form_class = NewUserForm
+
+
+class myUserMutation(graphene.ObjectType):
+    create_user = UserMutation.Field()
+
+
 
 
 # class CreateUser(graphene.Mutation):
