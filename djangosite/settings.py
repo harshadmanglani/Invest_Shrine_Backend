@@ -27,8 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+ 
 # Application definition
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,7 +51,10 @@ INSTALLED_APPS = [
 ]
 
 GRAPHENE = {
-    'SCHEMA': 'djangosite.schema.schema' # Where your Graphene schema lives
+    'SCHEMA': 'djangosite.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ], 
 }
 
 MIDDLEWARE = [
