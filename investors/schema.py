@@ -1,13 +1,13 @@
 from graphene_django import DjangoObjectType
 import graphene
 # from .models import PortfolioEnt as EntrepreneurPortfolioModel, Venture, Industry
-from .models import Portfolio as InvestorPortfolioModel, History
+from .models import Portfolio as InvestorPortfolioModel, History, WatchList
 from register.models import User
 from django.db.models import Q
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 from graphene_django.forms.mutation import DjangoModelFormMutation
-from .forms import InvestorPortfolioForm
+from .forms import InvestorPortfolioForm, WatchListForm
 from graphene import Field
 
 
@@ -24,6 +24,11 @@ class HistoryModel(DjangoObjectType):
         filter_fields = ['investment_history']
         interfaces =(relay.Node,)
 
+class WatchListModel(DjangoObjectType):
+    class Meta:
+        model = WatchList
+        filter_fields = ['investor','entrepreneurs']
+        interfaces = (relay.Node,)
 
 class Query(graphene.ObjectType):
 
@@ -33,6 +38,8 @@ class Query(graphene.ObjectType):
     history = relay.Node.Field(HistoryModel)
     inv_history = DjangoFilterConnectionField(HistoryModel)
 
+    watchlist = relay.Node.Field(WatchListModel)
+    inv_watchlist = DjangoFilterConnectionField(WatchListModel)
 
 #mutations here :
 class InvType(DjangoObjectType):
