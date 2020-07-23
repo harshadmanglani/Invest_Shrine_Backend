@@ -15,7 +15,7 @@ from graphene import Field
 class InvestorPortfolio(DjangoObjectType):
     class Meta:
         model = InvestorPortfolioModel
-        filter_fields = ['user','first_name','last_name','interests','current_occupation']
+        filter_fields = ['user','first_name','last_name','interests','current_occupation','location', 'num_investments']
         interfaces = (relay.Node,)
 
 class HistoryModel(DjangoObjectType):
