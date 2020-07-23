@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 GRAPHENE = {
-    'SCHEMA': 'djangosite.schema.schema' # Where your Graphene schema lives
+    'SCHEMA': 'djangosite.schema.schema', # Where your Graphene schema lives
     #jwt
     'MIDDLEWARE': [
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
