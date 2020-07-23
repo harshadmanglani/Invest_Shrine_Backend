@@ -25,3 +25,9 @@ class InvestorPortfolioForm(ModelForm):
             'current_occupation': _('Please try entering only your current position in the format: role @ company name')
             }
         
+
+
+class WatchListForm(ModelForm):
+    class Meta: 
+        model = WatchList 
+        fields = '__all__'
