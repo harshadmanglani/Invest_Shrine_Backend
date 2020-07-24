@@ -20,14 +20,16 @@ class Query(graphene.ObjectType):
     users = relay.Node.Field(UserModel)
     all_users = DjangoFilterConnectionField(UserModel)
 
-    def resolve_all_users(self, info):
+    # def resolve_all_users(self, info):
 
-        # context will reference to the Django request
-        print(info.context.user)
-        if not info.context.user.is_authenticated:
-            return User.objects.none()
-        else:
-            return User.objects.filter(user=info.context.user)
+    #     # context will reference to the Django request
+    #     all_users = DjangoFilterConnectionField(UserModel)
+
+    #     print(info.context.user)
+    #     if not info.context.user.is_authenticated:
+    #         return User.objects.none()
+    #     else:
+    #         # return all_users#User.objects.all()#filter(user=info.context.user)
 
 
 #mutation here:
