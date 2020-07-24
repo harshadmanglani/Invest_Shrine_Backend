@@ -5,11 +5,9 @@ import entrepreneurs.schema
 import investors.schema
 import register.schema
 
-
-
-class Query(entrepreneurs.schema.Query,investors.schema.Query, graphene.ObjectType):
+class Query(entrepreneurs.schema.Query,investors.schema.Query, register.schema.Query,graphene.ObjectType):
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
-    pass
 
 class Mutation(entrepreneurs.schema.myEntMutation,investors.schema.myInvMutation, register.schema.myUserMutation, graphene.ObjectType):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
