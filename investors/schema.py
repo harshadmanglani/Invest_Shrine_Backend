@@ -27,7 +27,7 @@ class HistoryModel(DjangoObjectType):
 class WatchListModel(DjangoObjectType):
     class Meta:
         model = WatchList
-        filter_fields = ['investor','entrepreneurs']
+        filter_fields = ['investor','ventures']
         interfaces = (relay.Node,)
 
 class Query(graphene.ObjectType):
@@ -52,5 +52,28 @@ class InvMutation(DjangoModelFormMutation):
     class Meta:
         form_class = InvestorPortfolioForm
 
+
+#mutation for Watchlist here
+class WatchListType(DjangoObjectType):
+    class Meta:
+        model = WatchList
+
+class AddtoWatchList(graphene.Mutation): #for every venture being added to watch list
+    watchlist = graphene.Field(WatchListType)
+
+    class Arguments :
+        investor = graphene.String(required = True)
+        venture = graphene.String(required = True)
+
+    def mutate(self, info, investor, venture, **kwargs):
+        wl_obj = WatchList.objects.get_or_create(investor = investor)
+        wl_obj.ventures.add(venture)
+        wl_obj.save()
+
+        return AddtoWatchList(watchlist = wl_obj)
+
+#ends here
+
 class myInvMutation(graphene.ObjectType):
     create_investor = InvMutation.Field()
+    add_to_watchlist = AddtoWatchList.Field()
