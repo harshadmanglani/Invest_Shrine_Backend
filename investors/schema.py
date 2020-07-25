@@ -52,7 +52,6 @@ class InvMutation(DjangoModelFormMutation):
     class Meta:
         form_class = InvestorPortfolioForm
 
-
 #mutation for Watchlist here
 class WatchListType(DjangoObjectType):
     class Meta:
@@ -62,8 +61,8 @@ class AddtoWatchList(graphene.Mutation): #for every venture being added to watch
     watchlist = graphene.Field(WatchListType)
 
     class Arguments :
-        investor = graphene.String(required = True)
-        venture = graphene.String(required = True)
+        investor = graphene.ID(required = True)
+        venture = graphene.ID(required = True)
 
     def mutate(self, info, investor, venture, **kwargs):
         wl_obj = WatchList.objects.get_or_create(investor = investor)
@@ -73,7 +72,14 @@ class AddtoWatchList(graphene.Mutation): #for every venture being added to watch
         return AddtoWatchList(watchlist = wl_obj)
 
 #ends here
+# djangomodelform mutation 
+class WatchListMutation(DjangoModelFormMutation):
+    watchlistobj = Field(WatchListType)
+
+    class Meta:
+        form_class = WatchListForm
 
 class myInvMutation(graphene.ObjectType):
     create_investor = InvMutation.Field()
     add_to_watchlist = AddtoWatchList.Field()
+    alter_watchlist = WatchListMutation.Field()
