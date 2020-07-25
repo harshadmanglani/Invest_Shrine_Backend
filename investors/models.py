@@ -1,5 +1,5 @@
 from django.db import models
-from entrepreneurs.models import Industry
+from entrepreneurs.models import Industry, Venture
 from entrepreneurs.models import PortfolioEnt as EntrepreneurPortfolio
 from register.models import User as User
 from django.dispatch import receiver
@@ -43,8 +43,8 @@ class History(models.Model): #was InvestmentHistoryModel
 
 #watchlist table for investors
 class WatchList(models.Model):
-    investor = models.ForeignKey(Portfolio, on_delete= models.CASCADE, null = True, blank =True)
-    entrepreneurs = models.ManyToManyField(EntrepreneurPortfolio, blank = True)
+    investor = models.OneToOneField(Portfolio, on_delete= models.CASCADE, null = True, blank =True)
+    ventures = models.ManyToManyField(Venture, blank = True)
 
     def __str__(self):
         return str(self.investor)                                           # don't modify

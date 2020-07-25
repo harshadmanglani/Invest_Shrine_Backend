@@ -5,7 +5,8 @@ import entrepreneurs.schema
 import investors.schema
 import register.schema
 
-class Query(entrepreneurs.schema.Query,investors.schema.Query, register.schema.Query,graphene.ObjectType):
+
+class Query(entrepreneurs.schema.Query, investors.schema.Query, register.schema.Query, graphene.ObjectType):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
