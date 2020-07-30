@@ -12,11 +12,12 @@ class Portfolio(models.Model): #was InvestorPortfolioModel
     current_occupation = models.CharField(max_length=100, blank = True, null = True)
     linkedin_profile = models.URLField(blank = True, null = True)
     background = models.TextField(blank = True, null = True)
-    interests = models.ManyToManyField('entrepreneurs.Industry') #investor's interests
+    interests = models.ManyToManyField('entrepreneurs.Industry', blank= True) #investor's interests
     investment = models.IntegerField(blank = True, null = True)
-    investment_history = models.ManyToManyField('History')
+    investment_history = models.ManyToManyField('History', blank=True)
     location = models.CharField(max_length=200,blank = True, null = True)
     num_investments = models.IntegerField(blank = True, null = True)
+    display_image = models.URLField(blank = True, null = True, default= None)
 
     def __str__(self):
         return str(self.first_name)                                           # don't modify
