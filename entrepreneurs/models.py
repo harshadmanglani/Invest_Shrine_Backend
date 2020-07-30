@@ -21,6 +21,8 @@ class Venture(models.Model):
     v_linkedin_profile = models.URLField(blank=True, null = True)
     tag_line = models.CharField(max_length=144, default= None, null = True, blank= True)
     location = models.CharField(max_length=100, default= None, null = True, blank= True)
+    logo_image = models.URLField(blank = True, null = True, default= None)
+    main_image = models.URLField(blank = True, null = True, default= None)
 
     def __str__(self):
         return str(self.venture_name)
@@ -37,6 +39,7 @@ class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel
     linkedin_profile = models.URLField(blank = True, null = True)
     exec_summary = models.TextField(blank = True, null = True)
     venture = models.ForeignKey(Venture,on_delete = models.CASCADE, null = True)
+    display_image = models.URLField(blank = True, null = True, default= None)
 
     def __str__(self):
         return str(self.first_name)
