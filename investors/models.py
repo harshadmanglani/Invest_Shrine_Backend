@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 class Portfolio(models.Model): #was InvestorPortfolioModel
+    portfolio_id = models.AutoField(primary_key= True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null = True,related_name = "investor_portfolio")
     first_name =  models.CharField(max_length = 100, blank = True, null = True) 
     last_name =  models.CharField(max_length = 100, blank = True, null = True)
@@ -44,6 +45,7 @@ class History(models.Model): #was InvestmentHistoryModel
 
 #watchlist table for investors
 class WatchList(models.Model):
+    watchlist_id = models.AutoField(primary_key= True)
     investor = models.OneToOneField(Portfolio, on_delete= models.CASCADE, null = True, blank =True)
     ventures = models.ManyToManyField(Venture, blank = True)
 
