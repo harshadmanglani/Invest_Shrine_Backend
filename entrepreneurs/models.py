@@ -13,6 +13,7 @@ class Industry(models.Model): # was IndustryModel
 
 
 class Venture(models.Model):
+    venture_id = models.AutoField(primary_key= True)
     venture_name = models.CharField(max_length = 300,blank = True, null = True)
     startup_summary = models.TextField(blank = True, null = True)
     industry = models.ManyToManyField('Industry', blank = True)
@@ -33,6 +34,7 @@ class Venture(models.Model):
 
 
 class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel 
+    portfolio_id = models.AutoField(primary_key= True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null = True,related_name = 'entrepreneur_portfolio')
     first_name =  models.CharField(max_length=100, blank = True, null = True)
     last_name =  models.CharField(max_length=100, blank = True, null = True)

@@ -65,8 +65,22 @@ class AddtoWatchList(graphene.Mutation): #for every venture being added to watch
         venture = graphene.ID(required = True)
 
     def mutate(self, info, investor, venture, **kwargs):
-        wl_obj = WatchList.objects.get_or_create(investor = investor)
+        wl_obj = WatchList.objects.get(investor= investor)
         wl_obj.ventures.add(venture)
+        wl_obj.save()
+
+        return AddtoWatchList(watchlist = wl_obj)
+
+class DeletefromWatchList(graphene.Mutation): #for every venture being added to watch list
+    watchlist = graphene.Field(WatchListType)
+
+    class Arguments :
+        investor = graphene.ID(required = True)
+        venture = graphene.ID(required = True)
+
+    def mutate(self, info, investor, venture, **kwargs):
+        wl_obj = WatchList.objects.get(investor= investor)
+        wl_obj.ventures.remove(venture)
         wl_obj.save()
 
         return AddtoWatchList(watchlist = wl_obj)
@@ -81,5 +95,6 @@ class WatchListMutation(DjangoModelFormMutation):
 
 class myInvMutation(graphene.ObjectType):
     create_investor = InvMutation.Field()
-    add_to_watchlist = AddtoWatchList.Field()
-    alter_watchlist = WatchListMutation.Field()
+    add_to_watchlist = AddtoWatchList.Field() # to add ventures to already existing field in watchlist. 
+    alter_watchlist = WatchListMutation.Field()  #to add investors. 
+    remove_from_watchlist = DeletefromWatchList.Field() # remove ventures from already existing investor field in watchlist. 
