@@ -42,7 +42,8 @@ class PortfolioEnt(models.Model): #EntrepreneurPortfolioModel
     exec_summary = models.TextField(blank = True, null = True)
     venture = models.ForeignKey(Venture,on_delete = models.CASCADE, null = True)
     display_image = models.URLField(blank = True, null = True, default= None)
-
+    location = models.CharField(max_length=200,blank = True, null = True)
+    
     def __str__(self):
         return str(self.first_name)
     

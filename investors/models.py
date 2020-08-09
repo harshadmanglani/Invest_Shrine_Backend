@@ -55,6 +55,9 @@ class WatchList(models.Model):
     class Meta:
         verbose_name_plural = "WatchList"
 
+#beeps table for investors
+# class Beeps(models.Model):
+#     "This Model contains the elements required for the beep table which are investors, entrepreneur."
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

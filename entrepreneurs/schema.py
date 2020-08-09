@@ -14,14 +14,14 @@ from graphene import Field
 class EntrepreneurPortfolio(DjangoObjectType):
     class Meta:
         model = EntrepreneurPortfolioModel
-        filter_fields = ['user','first_name','last_name', 'venture']
+        filter_fields = ['user','first_name','last_name', 'venture', 'location']
         interfaces = (relay.Node,)
         
 
 class VentureModel(DjangoObjectType):
     class Meta:
         model = Venture
-        filter_fields = ['venture_name', 'industry']
+        filter_fields = ['venture_name', 'industry','location']
         interfaces = (relay.Node,)
 
 class IndustryModel(DjangoObjectType):
