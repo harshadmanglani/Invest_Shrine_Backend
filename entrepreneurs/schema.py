@@ -21,7 +21,7 @@ class EntrepreneurPortfolio(DjangoObjectType):
 class VentureModel(DjangoObjectType):
     class Meta:
         model = Venture
-        filter_fields = ['venture_name', 'industry','location']
+        filter_fields = ['venture_name', 'industry','location','venture_id']
         interfaces = (relay.Node,)
 
 class IndustryModel(DjangoObjectType):
