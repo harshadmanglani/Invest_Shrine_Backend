@@ -155,5 +155,5 @@ AZURE_ACCOUNT_NAME = "insurance1"
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 
 
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 LOGIN_URL='/login/'
