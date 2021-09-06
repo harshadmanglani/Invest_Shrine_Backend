@@ -155,5 +155,6 @@ AZURE_ACCOUNT_NAME = "insurance1"
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 
 
-STATIC_ROOT = '/static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_URL='/login/'
